@@ -97,7 +97,9 @@ public class registroCuenta extends HttpServlet {
                 Logger.getLogger(registroCuenta.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-              processRequest(request, response);
+              try (PrintWriter out = response.getWriter()) {
+                out.println("<script type='text/javascript'>alert('Ya existe un usuario registrado con el mismo correo');location='RegistroDeCuenta.html';</script>");
+            }
         }
         
       
