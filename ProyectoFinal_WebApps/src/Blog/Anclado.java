@@ -6,6 +6,7 @@
 package Blog;
 
 import java.util.Date;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -17,6 +18,18 @@ public class Anclado extends Post {
      *
      */
     public Anclado() {
+    }
+
+    public Anclado(Date fechaHoraCreacion, String titulo, String contenido) {
+        super(fechaHoraCreacion, titulo, contenido);
+    }
+
+    public Anclado(Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
+    }
+
+    public Anclado(ObjectId id, ObjectId autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        super(id, autor, fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
     }
 
     /**

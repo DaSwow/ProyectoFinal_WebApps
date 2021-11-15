@@ -7,6 +7,7 @@ package Blog;
 
 import java.util.Date;
 import java.util.Objects;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -14,6 +15,8 @@ import java.util.Objects;
  */
 public class Post {
 
+    private ObjectId id;
+    private ObjectId autor;
     private Date fechaHoraCreacion;
     private String titulo;
     private String contenido;
@@ -45,6 +48,15 @@ public class Post {
      * @param fechaHoraEdicion
      */
     public Post(Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.titulo = titulo;
+        this.contenido = contenido;
+        this.fechaHoraEdicion = fechaHoraEdicion;
+    }
+
+    public Post(ObjectId id, ObjectId autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        this.id = id;
+        this.autor = autor;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
@@ -115,23 +127,31 @@ public class Post {
         this.fechaHoraEdicion = fechaHoraEdicion;
     }
 
-    /**
-     *
-     * @return
-     */
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public ObjectId getAutor() {
+        return autor;
+    }
+
+    public void setAutor(ObjectId autor) {
+        this.autor = autor;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.fechaHoraCreacion);
-        hash = 59 * hash + Objects.hashCode(this.titulo);
-        hash = 59 * hash + Objects.hashCode(this.contenido);
-        hash = 59 * hash + Objects.hashCode(this.fechaHoraEdicion);
+        hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     /**
      *
-     * @param obj
      * @return
      */
     @Override
@@ -146,16 +166,7 @@ public class Post {
             return false;
         }
         final Post other = (Post) obj;
-        if (!Objects.equals(this.titulo, other.titulo)) {
-            return false;
-        }
-        if (!Objects.equals(this.contenido, other.contenido)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaHoraCreacion, other.fechaHoraCreacion)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaHoraEdicion, other.fechaHoraEdicion)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;

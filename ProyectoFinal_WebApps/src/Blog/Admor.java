@@ -14,22 +14,12 @@ import java.util.List;
  */
 public class Admor extends Usuario {
 
-    private List<Anclado> anclado;
 
-    /**
-     *
-     * @return
-     */
-    public List<Anclado> getAnclado() {
-        return anclado;
+    public Admor() {
     }
 
-    /**
-     *
-     * @param anclado
-     */
-    public void setAnclado(List<Anclado> anclado) {
-        this.anclado = anclado;
+    public Admor(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero) {
+        super(nombreCompleto, correo, contrasena, telefono, ciudad, fechaNacimiento, genero);
     }
 
     /**

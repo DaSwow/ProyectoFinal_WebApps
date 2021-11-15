@@ -6,6 +6,7 @@
 package Blog;
 
 import java.util.Objects;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.util.Objects;
  */
 public class Municipio {
 
-    private String id;
+    private ObjectId id;
     private String nombre;
 
     /**
@@ -27,7 +28,7 @@ public class Municipio {
      * @param id
      * @param nombre
      */
-    public Municipio(String id, String nombre) {
+    public Municipio(ObjectId id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -36,7 +37,7 @@ public class Municipio {
      *
      * @return
      */
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
@@ -44,7 +45,7 @@ public class Municipio {
      *
      * @param id
      */
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

@@ -1,9 +1,15 @@
 package Datos;
 
+
 import Blog.Comun;
 import Exceptions.DAOException;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -11,7 +17,7 @@ import java.util.List;
  */
 public class RepComun extends BaseDAO<Comun> {
 
-    private List<Comun> comunes = new ArrayList<>();
+//    private List<Comun> comunes = new ArrayList<>();
 
     /**
      *
@@ -22,7 +28,10 @@ public class RepComun extends BaseDAO<Comun> {
      */
     @Override
     public List<Comun> buscar() throws DAOException {
-        return comunes;
+         MongoCollection<Comun> coleccion = this.getColeccion();
+        FindIterable<Comun> posts = coleccion.find();
+         ArrayList<Comun> listaPosts = new ArrayList();
+        return posts.into(listaPosts);
     }
 
     /**
@@ -33,7 +42,8 @@ public class RepComun extends BaseDAO<Comun> {
      */
     @Override
     public void guardar(Comun entidad) throws DAOException {
-        comunes.add(entidad);
+          MongoCollection<Comun> coleccion = this.getColeccion();
+         coleccion.insertOne(entidad);
     }
 
     /**
@@ -43,15 +53,7 @@ public class RepComun extends BaseDAO<Comun> {
      * @throws DAOException Regresa una excepcion en caso de que no se hayan
      * podido actualizar los datos de la base de datos
      */
-    @Override
-    public void actualizar(int id, Comun entidad) throws DAOException {
-        comunes.get(id).setComentario(entidad.getComentario());
-        comunes.get(id).setContenido(entidad.getContenido());
-        comunes.get(id).setFechaHoraCreacion(entidad.getFechaHoraCreacion());
-        comunes.get(id).setFechaHoraEdicion(entidad.getFechaHoraEdicion());
-        comunes.get(id).setTitulo(entidad.getTitulo());
-        comunes.get(id).setUsuario(entidad.getUsuario());
-    }
+
 
     /**
      * Realiza una consulta por ID en la base de datos
@@ -62,10 +64,7 @@ public class RepComun extends BaseDAO<Comun> {
      * @throws DAOException Regresa una excepcion en caso de que ocurriera un
      * error al intentar consultar la base de datos
      */
-    @Override
-    public Comun buscar(int id) throws DAOException {
-        return comunes.get(id);
-    }
+
 
     /**
      * Busca y elimina una entidad en la base de datos
@@ -74,7 +73,40 @@ public class RepComun extends BaseDAO<Comun> {
      * error al intentar eliminar una entidad en la base de datos
      */
     @Override
-    public void eliminar(Comun entidad) throws DAOException {
-        comunes.remove(entidad);
+    public void eliminar(ObjectId id) throws DAOException {
+           MongoCollection<Comun> coleccion = this.getColeccion();
+        Document filtroEliminacion =new Document("_id",id);
+        coleccion.deleteOne(filtroEliminacion);
+    }
+
+    @Override
+    public void actualizar(Comun entidad) throws DAOException {
+          MongoCollection<Comun> coleccion = this.getColeccion();
+        Document filtroActualizacion = new Document("_id",entidad.getId());
+        
+        Document datosActualizados=new Document("$set"
+                ,new Document("autor",entidad.getAutor())
+                        .append("contenido", entidad.getContenido())
+                        .append("fechaHoraCreacion", entidad.getFechaHoraCreacion())
+                        .append("fechaHoraEdicion", entidad.getFechaHoraEdicion())
+                        .append("titulo", entidad.getTitulo())
+                        .append("correo", entidad.getComentarios()));
+        coleccion.findOneAndUpdate(filtroActualizacion,datosActualizados);
+    }
+
+    @Override
+    public Comun buscar(ObjectId id) throws DAOException {
+           MongoCollection<Comun> coleccion = this.getColeccion();
+        Document filtroBusqueda = new Document("_id", id);
+        FindIterable<Comun> posts = coleccion.find(filtroBusqueda);
+        Comun post = posts.first();
+        return post;
+    }
+
+    @Override
+    public MongoCollection getColeccion() {
+       MongoDatabase bd = this.getDatabase();
+       MongoCollection<Comun> coleccion = bd.getCollection("post", Comun.class);
+       return coleccion;
     }
 }

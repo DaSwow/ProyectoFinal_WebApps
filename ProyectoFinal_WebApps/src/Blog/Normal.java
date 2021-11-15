@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class Normal extends Usuario {
 
-    private List<Comentario> comentario;
 
     /**
      *
@@ -22,21 +21,11 @@ public class Normal extends Usuario {
     public Normal() {
     }
 
-    /**
-     *
-     * @return
-     */
-    public List<Comentario> getComentario() {
-        return comentario;
+    public Normal(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero) {
+        super(nombreCompleto, correo, contrasena, telefono, ciudad, fechaNacimiento, genero);
     }
 
-    /**
-     *
-     * @param comentario
-     */
-    public void setComentario(List<Comentario> comentario) {
-        this.comentario = comentario;
-    }
+  
 
     /**
      *

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Inicio de Sesi&oacute;n</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <section name="FormularioLogin" class="center">
+    	<header>
+    		<h1 name="CabeceraLogin">Inicio de Sesi&oacute;n</h1>
+    	</header>
+      <form action="iniciarSesion" method="post">
+        <fieldset class="txt_field">
+          <input name="correo" type="text" required>
+         	 <span></span>
+          <label>Correo</label>
+        </fieldset>
+    
+        <fieldset class="txt_field">
+          <input name="password" type="password" required>
+          <span></span>
+          <label>Contrase&ntilde;a</label>
+        </fieldset>
+        
+        <a class="pass" name="ContrasenaOlvidada"> &#191;Olvido su contrase&ntilde;a? </a>
+        <br><br>
+
+        <input name="BotonInicioSesion" type="submit" value="Iniciar Sesi&oacute;n">
+        <br><br>
+        	
+        <section name="EnlaceCrearCuenta" class="link">
+          <label>&#191;No tiene una cuenta?</label> 
+          <a href="RegistroDeCuenta.html">Cree una</a>
+          <br><br>
+        </section>
+    
+      </form>
+    </section>
+  </body>
+  
+  <footer class="footer">
+  	<section name="EnlacesFooter" class="link">
+    	<a href="#">Acerca de&nbsp;</a>
+   		<a class="tab" href="#">Privacidad y Seguridad&nbsp;</a>
+    	<a class="tab" href="#">T&eacute;rminos y Condiciones de Uso&nbsp;</a>
+    </section>
+  </footer>
+  
+</html>

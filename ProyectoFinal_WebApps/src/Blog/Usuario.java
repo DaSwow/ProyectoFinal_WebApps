@@ -8,6 +8,7 @@ package Blog;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -15,6 +16,15 @@ import java.util.Objects;
  */
 public class Usuario {
 
+    private ObjectId id;
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
     private String nombreCompleto;
     private String correo;
     private String contrasena;
@@ -23,8 +33,7 @@ public class Usuario {
     private String ciudad;
     private Date fechaNacimiento;
     private String genero;
-    private Municipio municipio;
-    private List<Comun> comun;
+    //private Municipio municipio;
 
     /**
      *
@@ -42,20 +51,16 @@ public class Usuario {
      * @param ciudad
      * @param fechaNacimiento
      * @param genero
-     * @param municipio
-     * @param comun 
      */
-    public Usuario(String nombreCompleto, String correo, String contrasena, String telefono, String avatar, String ciudad, Date fechaNacimiento, String genero, Municipio municipio, List<Comun> comun) {
+    public Usuario(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero) {
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
         this.contrasena = contrasena;
         this.telefono = telefono;
-        this.avatar = avatar;
         this.ciudad = ciudad;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
-        this.municipio = municipio;
-        this.comun = comun;
+//        this.municipio = municipio;
     }
 
     /**
@@ -186,63 +191,29 @@ public class Usuario {
         this.genero = genero;
     }
 
-    /**
-     * 
-     * @return 
-     */
-    public Municipio getMunicipio() {
-        return municipio;
-    }
+//    /**
+//     * 
+//     * @return 
+//     */
+//    public Municipio getMunicipio() {
+//        return municipio;
+//    }
+//
+//    /**
+//     * 
+//     * @param municipio 
+//     */
+//    public void setMunicipio(Municipio municipio) {
+//        this.municipio = municipio;
+//    }
 
-    /**
-     * 
-     * @param municipio 
-     */
-    public void setMunicipio(Municipio municipio) {
-        this.municipio = municipio;
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public List<Comun> getComun() {
-        return comun;
-    }
-
-    /**
-     * 
-     * @param comun 
-     */
-    public void setComun(List<Comun> comun) {
-        this.comun = comun;
-    }
-
-    /**
-     * 
-     * @return 
-     */
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.nombreCompleto);
-        hash = 53 * hash + Objects.hashCode(this.correo);
-        hash = 53 * hash + Objects.hashCode(this.contrasena);
-        hash = 53 * hash + Objects.hashCode(this.telefono);
-        hash = 53 * hash + Objects.hashCode(this.avatar);
-        hash = 53 * hash + Objects.hashCode(this.ciudad);
-        hash = 53 * hash + Objects.hashCode(this.fechaNacimiento);
-        hash = 53 * hash + Objects.hashCode(this.genero);
-        hash = 53 * hash + Objects.hashCode(this.municipio);
-        hash = 53 * hash + Objects.hashCode(this.comun);
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
-    /**
-     * 
-     * @param obj
-     * @return 
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -255,34 +226,7 @@ public class Usuario {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (!Objects.equals(this.nombreCompleto, other.nombreCompleto)) {
-            return false;
-        }
-        if (!Objects.equals(this.correo, other.correo)) {
-            return false;
-        }
-        if (!Objects.equals(this.contrasena, other.contrasena)) {
-            return false;
-        }
-        if (!Objects.equals(this.telefono, other.telefono)) {
-            return false;
-        }
-        if (!Objects.equals(this.avatar, other.avatar)) {
-            return false;
-        }
-        if (!Objects.equals(this.ciudad, other.ciudad)) {
-            return false;
-        }
-        if (!Objects.equals(this.genero, other.genero)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaNacimiento, other.fechaNacimiento)) {
-            return false;
-        }
-        if (!Objects.equals(this.municipio, other.municipio)) {
-            return false;
-        }
-        if (!Objects.equals(this.comun, other.comun)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
@@ -294,7 +238,7 @@ public class Usuario {
      */
     @Override
     public String toString() {
-        return "Usuario{" + "nombreCompleto=" + nombreCompleto + ", correo=" + correo + ", contrasena=" + contrasena + ", telefono=" + telefono + ", avatar=" + avatar + ", ciudad=" + ciudad + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + ", municipio=" + municipio + ", comun=" + comun + '}';
+        return "Usuario{" + "nombreCompleto=" + nombreCompleto + ", correo=" + correo + ", contrasena=" + contrasena + ", telefono=" + telefono + ", avatar=" + avatar + ", ciudad=" + ciudad + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + '}';
     }
 
     

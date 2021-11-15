@@ -1,9 +1,15 @@
 package Datos;
 
 import Blog.Anclado;
+import Blog.Comun;
 import Exceptions.DAOException;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -11,7 +17,7 @@ import java.util.List;
  */
 public class RepAnclado extends BaseDAO<Anclado> {
 
-    private List<Anclado> anclados = new ArrayList<>();
+//    private List<Anclado> anclados = new ArrayList<>();
 
     /**
      *
@@ -22,7 +28,10 @@ public class RepAnclado extends BaseDAO<Anclado> {
      */
     @Override
     public List<Anclado> buscar() throws DAOException {
-        return anclados;
+        MongoCollection<Anclado> coleccion = this.getColeccion();
+        FindIterable<Anclado> posts = coleccion.find();
+         ArrayList<Anclado> listaPosts = new ArrayList();
+        return posts.into(listaPosts);
     }
 
     /**
@@ -33,22 +42,28 @@ public class RepAnclado extends BaseDAO<Anclado> {
      */
     @Override
     public void guardar(Anclado entidad) throws DAOException {
-        anclados.add(entidad);
+          MongoCollection<Anclado> coleccion = this.getColeccion();
+         coleccion.insertOne(entidad);
     }
 
     /**
      *
-     * @param id
      * @param entidad
      * @throws DAOException Regresa una excepcion en caso de que no se hayan
      * podido actualizar los datos de la base de datos
      */
     @Override
-    public void actualizar(int id, Anclado entidad) throws DAOException {
-        anclados.get(id).setContenido(entidad.getContenido());
-        anclados.get(id).setFechaHoraCreacion(entidad.getFechaHoraCreacion());
-        anclados.get(id).setFechaHoraEdicion(entidad.getFechaHoraEdicion());
-        anclados.get(id).setTitulo(entidad.getTitulo());
+    public void actualizar(Anclado entidad) throws DAOException {
+         MongoCollection<Anclado> coleccion = this.getColeccion();
+        Document filtroActualizacion = new Document("_id",entidad.getId());
+        
+        Document datosActualizados=new Document("$set"
+                ,new Document("autor",entidad.getAutor())
+                        .append("contenido", entidad.getContenido())
+                        .append("fechaHoraCreacion", entidad.getFechaHoraCreacion())
+                        .append("fechaHoraEdicion", entidad.getFechaHoraEdicion())
+                        .append("titulo", entidad.getTitulo()));
+        coleccion.findOneAndUpdate(filtroActualizacion,datosActualizados);
     }
 
     /**
@@ -61,8 +76,12 @@ public class RepAnclado extends BaseDAO<Anclado> {
      * error al intentar consultar la base de datos
      */
     @Override
-    public Anclado buscar(int id) throws DAOException {
-        return anclados.get(id);
+    public Anclado buscar(ObjectId id) throws DAOException {
+           MongoCollection<Anclado> coleccion = this.getColeccion();
+        Document filtroBusqueda = new Document("_id", id);
+        FindIterable<Anclado> posts = coleccion.find(filtroBusqueda);
+        Anclado post = posts.first();
+        return post;
     }
 
     /**
@@ -72,7 +91,16 @@ public class RepAnclado extends BaseDAO<Anclado> {
      * error al intentar eliminar una entidad en la base de datos
      */
     @Override
-    public void eliminar(Anclado entidad) throws DAOException {
-        anclados.remove(entidad);
+    public void eliminar(ObjectId id) throws DAOException {
+          MongoCollection<Anclado> coleccion = this.getColeccion();
+        Document filtroEliminacion =new Document("_id",id);
+        coleccion.deleteOne(filtroEliminacion);
+    }
+
+    @Override
+    public MongoCollection getColeccion() {
+        MongoDatabase bd = this.getDatabase();
+       MongoCollection<Anclado> coleccion = bd.getCollection("Anclados", Anclado.class);
+       return coleccion;
     }
 }

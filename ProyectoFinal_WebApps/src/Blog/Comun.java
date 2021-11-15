@@ -7,6 +7,7 @@ package Blog;
 
 import java.util.Date;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -14,39 +15,36 @@ import java.util.List;
  */
 public class Comun extends Post {
 
-    private Usuario usuario;
-    private List<Comentario> comentario;
 
-    /**
-     *
-     * @return
-     */
-    public Usuario getUsuario() {
-        return usuario;
+    private List<Comentario> comentarios;
+
+    public Comun(Date fechaHoraCreacion, String titulo, String contenido) {
+        super(fechaHoraCreacion, titulo, contenido);
     }
 
-    /**
-     *
-     * @param usuario
-     */
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public Comun(Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
     }
+
+    public Comun(ObjectId id, ObjectId autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        super(id, autor, fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
+    }
+
 
     /**
      * 
      * @return 
      */
-    public List<Comentario> getComentario() {
-        return comentario;
+    public List<Comentario> getComentarios() {
+        return comentarios;
     }
 
     /**
      * 
-     * @param comentario 
+     * @param comentarios 
      */
-    public void setComentario(List<Comentario> comentario) {
-        this.comentario = comentario;
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     /**

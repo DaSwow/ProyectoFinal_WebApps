@@ -2,8 +2,13 @@ package Datos;
 
 import Blog.Normal;
 import Exceptions.DAOException;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
+import org.bson.Document;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -11,7 +16,7 @@ import java.util.List;
  */
 public class RepNormal extends BaseDAO<Normal> {
 
-    private List<Normal> normales = new ArrayList<>();
+//    private List<Normal> normales = new ArrayList<>();
 
     /**
      *
@@ -22,7 +27,10 @@ public class RepNormal extends BaseDAO<Normal> {
      */
     @Override
     public List<Normal> buscar() throws DAOException {
-        return normales;
+         MongoCollection<Normal> coleccion = this.getColeccion();
+        FindIterable<Normal> usuarios = coleccion.find();
+         ArrayList<Normal> listaUsuarios = new ArrayList();
+        return usuarios.into(listaUsuarios);
     }
 
     /**
@@ -33,7 +41,8 @@ public class RepNormal extends BaseDAO<Normal> {
      */
     @Override
     public void guardar(Normal entidad) throws DAOException {
-        normales.add(entidad);
+         MongoCollection<Normal> coleccion = this.getColeccion();
+         coleccion.insertOne(entidad);
     }
 
     /**
@@ -43,18 +52,7 @@ public class RepNormal extends BaseDAO<Normal> {
      * @throws DAOException Regresa una excepcion en caso de que no se hayan
      * podido actualizar los datos de la base de datos
      */
-    @Override
-    public void actualizar(int id, Normal entidad) throws DAOException {
-        normales.get(id).setAvatar(entidad.getAvatar());
-        normales.get(id).setCiudad(entidad.getCiudad());
-        normales.get(id).setComentario(entidad.getComentario());
-        normales.get(id).setContrasena(entidad.getContrasena());
-        normales.get(id).setCorreo(entidad.getCorreo());
-        normales.get(id).setFechaNacimiento(entidad.getFechaNacimiento());
-        normales.get(id).setGenero(entidad.getGenero());
-        normales.get(id).setNombreCompleto(entidad.getNombreCompleto());
-        normales.get(id).setTelefono(entidad.getTelefono());
-    }
+
 
     /**
      * Realiza una consulta por ID en la base de datos
@@ -65,10 +63,7 @@ public class RepNormal extends BaseDAO<Normal> {
      * @throws DAOException Regresa una excepcion en caso de que ocurriera un
      * error al intentar consultar la base de datos
      */
-    @Override
-    public Normal buscar(int id) throws DAOException {
-        return normales.get(id);
-    }
+
 
     /**
      * Busca y elimina una entidad en la base de datos
@@ -77,8 +72,61 @@ public class RepNormal extends BaseDAO<Normal> {
      * error al intentar eliminar una entidad en la base de datos
      */
     @Override
-    public void eliminar(Normal entidad) throws DAOException {
-        normales.remove(entidad);
+    public void eliminar(ObjectId id) throws DAOException {
+        MongoCollection<Normal> coleccion = this.getColeccion();
+        Document filtroEliminacion =new Document("_id",id);
+        coleccion.deleteOne(filtroEliminacion);
+    }
+
+    @Override
+    public void actualizar(Normal entidad) throws DAOException {
+        MongoCollection<Normal> coleccion = this.getColeccion();
+        Document filtroActualizacion = new Document("_id",entidad.getId());
+        
+        Document datosActualizados=new Document("$set"
+                ,new Document("nombreCompleto",entidad.getNombreCompleto())
+                        .append("contrasenia", entidad.getContrasena())
+                        .append("genero", entidad.getGenero())
+                        .append("fechaNacimiento", entidad.getFechaNacimiento())
+                        .append("telefono", entidad.getTelefono())
+                        .append("correo", entidad.getCorreo())
+                        .append("ciudad", entidad.getCiudad())
+                        .append("avatar", entidad.getAvatar()));
+        coleccion.findOneAndUpdate(filtroActualizacion,datosActualizados);
+    }
+
+    @Override
+    public Normal buscar(ObjectId id) throws DAOException {
+         MongoCollection<Normal> coleccion = this.getColeccion();
+        Document filtroBusqueda = new Document("_id", id);
+        FindIterable<Normal> usuarios = coleccion.find(filtroBusqueda);
+        Normal usuario = usuarios.first();
+        return usuario;
+    }
+
+    public Normal buscarPorCorreo(String correo) {
+       MongoCollection<Normal> coleccion = this.getColeccion();
+        Document filtroBusqueda = new Document("correo",correo);        
+        FindIterable<Normal> usuarios = coleccion.find(filtroBusqueda);
+        Normal usuario = usuarios.first();
+        return usuario;
+    }
+    
+    
+    public Normal buscarPorNombreyContra(String correo,String contra){
+        MongoCollection<Normal> coleccion = this.getColeccion();
+        Document filtroBusqueda = new Document("correo",correo);
+        filtroBusqueda.append("contrasena", contra);
+        FindIterable<Normal> usuarios = coleccion.find(filtroBusqueda);
+        Normal usuario = usuarios.first();
+        return usuario;
+    }
+    
+    @Override
+    public MongoCollection getColeccion() {
+         MongoDatabase bd = this.getDatabase();
+       MongoCollection<Normal> coleccion = bd.getCollection("usuarios", Normal.class);
+       return coleccion;
     }
 
 }

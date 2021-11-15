@@ -2,13 +2,53 @@ package Datos;
 
 import Exceptions.DAOException;
 import java.util.List;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoClients;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClient;
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
+import com.mongodb.client.MongoCollection;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @param <T>
  */
 public abstract class BaseDAO<T> {
+       private final String SERVIDOR = "localhost";
+       private final int PUERTO = 27017;
+       
+       
+       protected MongoDatabase getDatabase() {
+       
+        try {
+            // CONFIGURACIÓN PARA QUE MONGO HAGA EL MAPEO DE POJOS AUTOMATICAMENTE
+            CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
+            
+            CodecRegistry codecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), 
+                    pojoCodecRegistry);
+            
+            // OBJETO QUE EMPAQUETA UNA CADENA DE CONEXION
+            ConnectionString cadenaConexion = new ConnectionString("mongodb://"+SERVIDOR+"/"+PUERTO);
+            
+            MongoClientSettings clientSettings = MongoClientSettings.builder()
+                    .applyConnectionString(cadenaConexion)
+                    .codecRegistry(codecRegistry).build();
+            
+            MongoClient servidor = (MongoClient) MongoClients.create(clientSettings);
 
+            MongoDatabase bd = servidor.getDatabase("proyecto_web");
+            return bd;
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            throw ex;
+        }
+
+    }
     /**
      * Realiza una consulta en la base de datos
      *
@@ -38,7 +78,7 @@ public abstract class BaseDAO<T> {
      * @throws DAOException Regresa una excepcion en caso de que no se hayan
      * podido actualizar los datos de la base de datos
      */
-    public abstract void actualizar(int id, T entidad) throws DAOException;
+    public abstract void actualizar(T entidad) throws DAOException;
 
     /**
      * Realiza una consulta por ID en la base de datos
@@ -49,7 +89,7 @@ public abstract class BaseDAO<T> {
      * @throws DAOException Regresa una excepcion en caso de que ocurriera un
      * error al intentar consultar la base de datos
      */
-    public abstract T buscar(int id) throws DAOException;
+    public abstract T buscar(ObjectId id) throws DAOException;
 
     /**
      * Busca y elimina una entidad en la base de datos
@@ -58,6 +98,6 @@ public abstract class BaseDAO<T> {
      * @throws DAOException Regresa una excepcion en caso de que ocurriera un
      * error al intentar eliminar una entidad en la base de datos
      */
-    public abstract void eliminar(T entidad) throws DAOException;
-
+    public abstract void eliminar(ObjectId id) throws DAOException;
+    public abstract MongoCollection getColeccion();
 }
