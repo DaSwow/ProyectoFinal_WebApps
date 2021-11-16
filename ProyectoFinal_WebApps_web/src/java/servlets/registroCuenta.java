@@ -99,7 +99,13 @@ public class registroCuenta extends HttpServlet {
         String telefono = request.getParameter("telefono");
         String ciudad = request.getParameter("ciudad");
         Date fechaNac = new Date(); //request.getParameter("fechaNacimiento");
-        String genero = request.getParameter("sexo");
+
+        String genero;
+        if (request.getParameter("sexo").equals("on")) {
+            genero = "Hombre";
+        } else {
+            genero = "Mujer";
+        }
 
         // Hash password for obligatory security measures
         String generatedSecuredPasswordHash
