@@ -5,10 +5,16 @@
  */
 package servlets;
 
+import Blog.Comun;
 import Blog.Normal;
+import Datos.RepComun;
 import Datos.RepNormal;
+import Exceptions.DAOException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +38,7 @@ public class iniciarSesion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -92,11 +98,40 @@ public class iniciarSesion extends HttpServlet {
             String destino = "principal.jsp";
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("usuario", usuario);
+            getRetrieveAllPosts(request, response);
             requestD.forward(request, response);
         } else {
-            try (PrintWriter out = response.getWriter()) {
+            try ( PrintWriter out = response.getWriter()) {
                 out.println("<script type='text/javascript'>alert('El usuario o contraseña son incorrectos.');location='Login.html';</script>");
             }
+        }
+    }
+
+    /**
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    private void getRetrieveAllPosts(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            RepComun commonPostsRepository = new RepComun();
+            List<Comun> posts = commonPostsRepository.buscar();
+            for (int i = 0; i < posts.size(); i++) {
+                System.out.println(posts.get(i));
+            }
+            if (!posts.isEmpty()) {
+                //String destino = "principal.jsp";
+                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                request.setAttribute("commonPosts", posts);
+                //requestD.forward(request, response);
+            } else {
+                //
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(iniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

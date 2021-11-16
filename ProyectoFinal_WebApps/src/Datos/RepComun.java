@@ -6,6 +6,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -16,7 +17,6 @@ import org.bson.types.ObjectId;
  */
 public class RepComun extends BaseDAO<Comun> {
 
-//    private List<Comun> comunes = new ArrayList<>();
     /**
      *
      * @return Regresa todos los datos que se hayan encontrado en la base de datos
@@ -26,8 +26,12 @@ public class RepComun extends BaseDAO<Comun> {
     public List<Comun> buscar() throws DAOException {
         MongoCollection<Comun> coleccion = this.getColeccion();
         FindIterable<Comun> posts = coleccion.find();
-        ArrayList<Comun> listaPosts = new ArrayList();
-        return posts.into(listaPosts);
+        List<Comun> listaPosts = new ArrayList<>();
+        Iterator<Comun> it = posts.iterator();
+        while (it.hasNext()) {
+            listaPosts.add(it.next());
+        }
+        return listaPosts;
     }
 
     /**
@@ -42,21 +46,9 @@ public class RepComun extends BaseDAO<Comun> {
     }
 
     /**
-     *
-     * @param id
-     * @param entidad
-     * @throws DAOException Regresa una excepcion en caso de que no se hayan podido actualizar los datos de la base de datos
-     */
-    /**
-     * Realiza una consulta por ID en la base de datos
-     *
-     * @param id Recibe el ID de la entidad la cual se esta buscando en la base de datos
-     * @return Regresa la entidad encontrada con el mismo ID del parametro
-     * @throws DAOException Regresa una excepcion en caso de que ocurriera un error al intentar consultar la base de datos
-     */
-    /**
      * Busca y elimina una entidad en la base de datos
      *
+     * @param id
      * @throws DAOException Regresa una excepcion en caso de que ocurriera un error al intentar eliminar una entidad en la base de datos
      */
     @Override
@@ -66,13 +58,18 @@ public class RepComun extends BaseDAO<Comun> {
         coleccion.deleteOne(filtroEliminacion);
     }
 
+    /**
+     *
+     * @param entidad
+     * @throws DAOException
+     */
     @Override
     public void actualizar(Comun entidad) throws DAOException {
         MongoCollection<Comun> coleccion = this.getColeccion();
         Document filtroActualizacion = new Document("_id", entidad.getId());
 
         Document datosActualizados = new Document("$set",
-                 new Document("autor", entidad.getAutor())
+                new Document("autor", entidad.getAutor())
                         .append("contenido", entidad.getContenido())
                         .append("fechaHoraCreacion", entidad.getFechaHoraCreacion())
                         .append("fechaHoraEdicion", entidad.getFechaHoraEdicion())
@@ -81,6 +78,12 @@ public class RepComun extends BaseDAO<Comun> {
         coleccion.findOneAndUpdate(filtroActualizacion, datosActualizados);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws DAOException
+     */
     @Override
     public Comun buscar(ObjectId id) throws DAOException {
         MongoCollection<Comun> coleccion = this.getColeccion();
@@ -90,6 +93,10 @@ public class RepComun extends BaseDAO<Comun> {
         return post;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public MongoCollection getColeccion() {
         MongoDatabase bd = this.getDatabase();
