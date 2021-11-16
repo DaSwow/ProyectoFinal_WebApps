@@ -16,7 +16,7 @@ import org.bson.types.ObjectId;
 public class Post {
 
     private ObjectId id;
-    private ObjectId autor;
+    private String autor;
     private Date fechaHoraCreacion;
     private String titulo;
     private String contenido;
@@ -54,7 +54,7 @@ public class Post {
         this.fechaHoraEdicion = fechaHoraEdicion;
     }
 
-    public Post(ObjectId id, ObjectId autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+    public Post(ObjectId id, String autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
         this.id = id;
         this.autor = autor;
         this.fechaHoraCreacion = fechaHoraCreacion;
@@ -135,11 +135,11 @@ public class Post {
         this.id = id;
     }
 
-    public ObjectId getAutor() {
+    public String getAutor() {
         return autor;
     }
 
-    public void setAutor(ObjectId autor) {
+    public void setAutor(String autor) {
         this.autor = autor;
     }
 

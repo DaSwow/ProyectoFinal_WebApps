@@ -15,33 +15,59 @@ import org.bson.types.ObjectId;
  */
 public class Comun extends Post {
 
-
     private List<Comentario> comentarios;
 
+    /**
+     *
+     */
+    public Comun() {
+    }
+
+    /**
+     *
+     * @param fechaHoraCreacion
+     * @param titulo
+     * @param contenido
+     */
     public Comun(Date fechaHoraCreacion, String titulo, String contenido) {
         super(fechaHoraCreacion, titulo, contenido);
     }
 
+    /**
+     *
+     * @param fechaHoraCreacion
+     * @param titulo
+     * @param contenido
+     * @param fechaHoraEdicion
+     */
     public Comun(Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
         super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
     }
 
-    public Comun(ObjectId id, ObjectId autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+    /**
+     *
+     * @param id
+     * @param autor
+     * @param fechaHoraCreacion
+     * @param titulo
+     * @param contenido
+     * @param fechaHoraEdicion
+     */
+    public Comun(ObjectId id, String autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
         super(id, autor, fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
     }
 
-
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<Comentario> getComentarios() {
         return comentarios;
     }
 
     /**
-     * 
-     * @param comentarios 
+     *
+     * @param comentarios
      */
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
