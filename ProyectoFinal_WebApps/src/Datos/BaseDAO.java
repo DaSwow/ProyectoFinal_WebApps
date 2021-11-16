@@ -39,7 +39,7 @@ public abstract class BaseDAO<T> {
                     .applyConnectionString(cadenaConexion)
                     .codecRegistry(codecRegistry).build();
 
-            MongoClient servidor = (MongoClient) MongoClients.create(clientSettings);
+            MongoClient servidor = MongoClients.create(clientSettings);
 
             MongoDatabase bd = servidor.getDatabase("proyecto_web");
             return bd;
@@ -69,7 +69,6 @@ public abstract class BaseDAO<T> {
     /**
      * Actualiza los datos de una entidad existente en la base de datos
      *
-     * @param id
      * @param entidad Recibe una entidad con datos actualizados de una entidad existente en la base de datos
      * @throws DAOException Regresa una excepcion en caso de que no se hayan podido actualizar los datos de la base de datos
      */
@@ -87,7 +86,7 @@ public abstract class BaseDAO<T> {
     /**
      * Busca y elimina una entidad en la base de datos
      *
-     * @param entidad
+     * @param id
      * @throws DAOException Regresa una excepcion en caso de que ocurriera un error al intentar eliminar una entidad en la base de datos
      */
     public abstract void eliminar(ObjectId id) throws DAOException;

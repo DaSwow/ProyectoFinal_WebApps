@@ -6,7 +6,6 @@
 package Blog;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -14,18 +13,25 @@ import java.util.List;
  */
 public class Normal extends Usuario {
 
-
     /**
      *
      */
     public Normal() {
     }
 
+    /**
+     * 
+     * @param nombreCompleto
+     * @param correo
+     * @param contrasena
+     * @param telefono
+     * @param ciudad
+     * @param fechaNacimiento
+     * @param genero 
+     */
     public Normal(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero) {
         super(nombreCompleto, correo, contrasena, telefono, ciudad, fechaNacimiento, genero);
     }
-
-  
 
     /**
      *
