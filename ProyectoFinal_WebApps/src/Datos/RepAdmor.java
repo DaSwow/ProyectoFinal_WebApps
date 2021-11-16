@@ -17,40 +17,35 @@ import org.bson.types.ObjectId;
 public class RepAdmor extends BaseDAO<Admor> {
 
 //    private List<Admor> admors = new ArrayList<>();
-
     /**
      *
-     * @return Regresa todos los datos que se hayan encontrado en la base de
-     * datos
-     * @throws DAOException Regresa una excepcion en caso de que no se hayan
-     * podido recuperar los datos de la base de datos
+     * @return Regresa todos los datos que se hayan encontrado en la base de datos
+     * @throws DAOException Regresa una excepcion en caso de que no se hayan podido recuperar los datos de la base de datos
      */
     @Override
     public List<Admor> buscar() throws DAOException {
-         MongoCollection<Admor> coleccion = this.getColeccion();
+        MongoCollection<Admor> coleccion = this.getColeccion();
         FindIterable<Admor> administradores = coleccion.find();
-         ArrayList<Admor> listaAdmin = new ArrayList();
+        ArrayList<Admor> listaAdmin = new ArrayList();
         return administradores.into(listaAdmin);
     }
 
     /**
      *
      * @param entidad
-     * @throws DAOException Regresa una excepcion en caso de que no se haya
-     * podido insertar los datos a la base de datos
+     * @throws DAOException Regresa una excepcion en caso de que no se haya podido insertar los datos a la base de datos
      */
     @Override
     public void guardar(Admor entidad) throws DAOException {
         MongoCollection<Admor> coleccion = this.getColeccion();
-         coleccion.insertOne(entidad);
+        coleccion.insertOne(entidad);
     }
 
     /**
      *
      * @param id
      * @param entidad
-     * @throws DAOException Regresa una excepcion en caso de que no se hayan
-     * podido actualizar los datos de la base de datos
+     * @throws DAOException Regresa una excepcion en caso de que no se hayan podido actualizar los datos de la base de datos
      */
 //    @Override
 //    public void actualizar(int id, Admor entidad) throws DAOException {
@@ -64,38 +59,33 @@ public class RepAdmor extends BaseDAO<Admor> {
 //        admors.get(id).setNombreCompleto(entidad.getNombreCompleto());
 //        admors.get(id).setTelefono(entidad.getTelefono());
 //    }
-
     /**
      * Realiza una consulta por ID en la base de datos
      *
-     * @param id Recibe el ID de la entidad la cual se esta buscando en la base
-     * de datos
+     * @param id Recibe el ID de la entidad la cual se esta buscando en la base de datos
      * @return Regresa la entidad encontrada con el mismo ID del parametro
-     * @throws DAOException Regresa una excepcion en caso de que ocurriera un
-     * error al intentar consultar la base de datos
+     * @throws DAOException Regresa una excepcion en caso de que ocurriera un error al intentar consultar la base de datos
      */
-
     /**
      * Busca y elimina una entidad en la base de datos
      *
      * @param id Recibe el ID de la entidad para borrarla
-     * @throws DAOException Regresa una excepcion en caso de que ocurriera un
-     * error al intentar eliminar una entidad en la base de datos
+     * @throws DAOException Regresa una excepcion en caso de que ocurriera un error al intentar eliminar una entidad en la base de datos
      */
     @Override
     public void eliminar(ObjectId id) throws DAOException {
-         MongoCollection<Admor> coleccion = this.getColeccion();
-        Document filtroEliminacion =new Document("_id",id);
+        MongoCollection<Admor> coleccion = this.getColeccion();
+        Document filtroEliminacion = new Document("_id", id);
         coleccion.deleteOne(filtroEliminacion);
     }
 
     @Override
     public void actualizar(Admor entidad) throws DAOException {
-           MongoCollection<Admor> coleccion = this.getColeccion();
-        Document filtroActualizacion = new Document("_id",entidad.getId());
-        
-        Document datosActualizados=new Document("$set"
-                ,new Document("nombreCompleto",entidad.getNombreCompleto())
+        MongoCollection<Admor> coleccion = this.getColeccion();
+        Document filtroActualizacion = new Document("_id", entidad.getId());
+
+        Document datosActualizados = new Document("$set",
+                 new Document("nombreCompleto", entidad.getNombreCompleto())
                         .append("contrasenia", entidad.getContrasena())
                         .append("genero", entidad.getGenero())
                         .append("fechaNacimiento", entidad.getFechaNacimiento())
@@ -103,30 +93,29 @@ public class RepAdmor extends BaseDAO<Admor> {
                         .append("correo", entidad.getCorreo())
                         .append("ciudad", entidad.getCiudad())
                         .append("avatar", entidad.getAvatar()));
-        coleccion.findOneAndUpdate(filtroActualizacion,datosActualizados);
+        coleccion.findOneAndUpdate(filtroActualizacion, datosActualizados);
     }
 
     @Override
     public Admor buscar(ObjectId id) throws DAOException {
-          MongoCollection<Admor> coleccion = this.getColeccion();
+        MongoCollection<Admor> coleccion = this.getColeccion();
         Document filtroBusqueda = new Document("_id", id);
         FindIterable<Admor> administradores = coleccion.find(filtroBusqueda);
         Admor admin = administradores.first();
         return admin;
     }
-    
-        public Admor buscarPorCorreo(String correo) {
-       MongoCollection<Admor> coleccion = this.getColeccion();
-        Document filtroBusqueda = new Document("correo",correo);        
+
+    public Admor buscarPorCorreo(String correo) {
+        MongoCollection<Admor> coleccion = this.getColeccion();
+        Document filtroBusqueda = new Document("correo", correo);
         FindIterable<Admor> admins = coleccion.find(filtroBusqueda);
         Admor admin = admins.first();
         return admin;
     }
-    
-    
-    public Admor buscarPorNombreyContra(String correo,String contra){
+
+    public Admor buscarPorNombreyContra(String correo, String contra) {
         MongoCollection<Admor> coleccion = this.getColeccion();
-        Document filtroBusqueda = new Document("correo",correo);
+        Document filtroBusqueda = new Document("correo", correo);
         filtroBusqueda.append("contrasena", contra);
         FindIterable<Admor> administradores = coleccion.find(filtroBusqueda);
         Admor admin = administradores.first();
@@ -135,9 +124,9 @@ public class RepAdmor extends BaseDAO<Admor> {
 
     @Override
     public MongoCollection getColeccion() {
-         MongoDatabase bd = this.getDatabase();
-       MongoCollection<Admor> coleccion = bd.getCollection("administradores", Admor.class);
-       return coleccion;
+        MongoDatabase bd = this.getDatabase();
+        MongoCollection<Admor> coleccion = bd.getCollection("administradores", Admor.class);
+        return coleccion;
     }
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Clase interfaz de los metodos de datos
  *
- * @author 
+ * @author
  */
 public interface iDatos {
 
@@ -51,8 +51,7 @@ public interface iDatos {
     /**
      * Obtiene todos los estados de la base de datos mediante una consulta
      *
-     * @return Regresa todos los estados que se hayan podido recuperar de la
-     * base de datos
+     * @return Regresa todos los estados que se hayan podido recuperar de la base de datos
      */
     public List<Estado> buscaEstado();
 
@@ -75,8 +74,7 @@ public interface iDatos {
      * Actualiza un anclado en la base de datos
      *
      * @param id
-     * @param anclado Recibe un anclado el cual se actualizara en la base de
-     * datos
+     * @param anclado Recibe un anclado el cual se actualizara en la base de datos
      */
     public void actualizarAnclado(int id, Anclado anclado);
 
@@ -90,8 +88,7 @@ public interface iDatos {
     /**
      * Obtiene todos los anclados de la base de datos mediante una consulta
      *
-     * @return Regresa todos los anclados que se hayan podido recuperar de la
-     * base de datos
+     * @return Regresa todos los anclados que se hayan podido recuperar de la base de datos
      */
     public List<Anclado> buscaAnclado();
 
@@ -106,8 +103,7 @@ public interface iDatos {
     /**
      * Guarda un comentario en la base de datos
      *
-     * @param comentario Recibe un comentario el cual se guardara en la base de
-     * datos
+     * @param comentario Recibe un comentario el cual se guardara en la base de datos
      */
     public void guardarComentario(Comentario comentario);
 
@@ -115,8 +111,7 @@ public interface iDatos {
      * Actualiza un comentario en la base de datos
      *
      * @param id
-     * @param comentario Recibe un comentario el cual se actualizara en la base
-     * de datos
+     * @param comentario Recibe un comentario el cual se actualizara en la base de datos
      */
     public void actualizarComentario(int id, Comentario comentario);
 
@@ -130,8 +125,7 @@ public interface iDatos {
     /**
      * Obtiene todos los comentarios de la base de datos mediante una consulta
      *
-     * @return Regresa todos los comentarios que se hayan podido recuperar de la
-     * base de datos
+     * @return Regresa todos los comentarios que se hayan podido recuperar de la base de datos
      */
     public List<Comentario> buscaComentario();
 
@@ -146,8 +140,7 @@ public interface iDatos {
     /**
      * Guarda un municipio en la base de datos
      *
-     * @param admor Recibe un municipio el cual se guardara en la base de
-     * datos
+     * @param admor Recibe un municipio el cual se guardara en la base de datos
      */
     public void guardarAdmor(Admor admor);
 
@@ -155,27 +148,24 @@ public interface iDatos {
      * Actualiza un municipio en la base de datos
      *
      * @param id
-     * @param admor Recibe un municipio el cual se actualizara en la base de
-     * datos
+     * @param admor Recibe un municipio el cual se actualizara en la base de datos
      */
     public void actualizarAdmor(int id, Admor admor);
 
     /**
      * Elimnar un municipio de la base de datos
      *
-     * @param entidad Recibe el ID de un municipio el cual se eliminara de la
-     * base de datos
+     * @param entidad Recibe el ID de un municipio el cual se eliminara de la base de datos
      */
     public void eliminarAdmor(Admor entidad);
 
     /**
      * Obtiene todos los municipios de la base de datos mediante una consulta
      *
-     * @return Regresa todos los municipios que se hayan podido recuperar de la
-     * base de datos
+     * @return Regresa todos los municipios que se hayan podido recuperar de la base de datos
      */
     public List<Admor> buscaAdmor();
-    
+
     /**
      * Busca un municipio en la base de datos
      *
@@ -187,8 +177,7 @@ public interface iDatos {
     /**
      * Guarda un municipio en la base de datos
      *
-     * @param municipio Recibe un municipio el cual se guardara en la base de
-     * datos
+     * @param municipio Recibe un municipio el cual se guardara en la base de datos
      */
     public void guardarMunicipio(Municipio municipio);
 
@@ -196,8 +185,7 @@ public interface iDatos {
      * Actualiza un municipio en la base de datos
      *
      * @param id
-     * @param municipio Recibe un municipio el cual se actualizara en la base de
-     * datos
+     * @param municipio Recibe un municipio el cual se actualizara en la base de datos
      */
     public void actualizarMunicipio(int id, Municipio municipio);
 
@@ -211,8 +199,7 @@ public interface iDatos {
     /**
      * Obtiene todos los municipios de la base de datos mediante una consulta
      *
-     * @return Regresa todos los municipios que se hayan podido recuperar de la
-     * base de datos
+     * @return Regresa todos los municipios que se hayan podido recuperar de la base de datos
      */
     public List<Municipio> buscaMunicipio();
 
@@ -249,8 +236,7 @@ public interface iDatos {
     /**
      * Obtiene todos los posts de la base de datos mediante una consulta
      *
-     * @return Regresa todos los posts que se hayan podido recuperar de la base
-     * de datos
+     * @return Regresa todos los posts que se hayan podido recuperar de la base de datos
      */
     public List<Post> buscaPost();
 
@@ -287,8 +273,7 @@ public interface iDatos {
     /**
      * Obtiene todos los comuns de la base de datos mediante una consulta
      *
-     * @return Regresa todos los comuns que se hayan podido recuperar de la base
-     * de datos
+     * @return Regresa todos los comuns que se hayan podido recuperar de la base de datos
      */
     public List<Comun> buscaComun();
 
@@ -325,8 +310,7 @@ public interface iDatos {
     /**
      * Obtiene todos los normals de la base de datos mediante una consulta
      *
-     * @return Regresa todos los normals que se hayan podido recuperar de la
-     * base de datos
+     * @return Regresa todos los normals que se hayan podido recuperar de la base de datos
      */
     public List<Normal> buscaNormal();
 
@@ -349,8 +333,7 @@ public interface iDatos {
      * Actualiza un usuario en la base de datos
      *
      * @param id
-     * @param usuario Recibe un usuario el cual se actualizara en la base de
-     * datos
+     * @param usuario Recibe un usuario el cual se actualizara en la base de datos
      */
     public void actualizarUsuario(int id, Usuario usuario);
 
@@ -364,8 +347,7 @@ public interface iDatos {
     /**
      * Obtiene todos los usuarios de la base de datos mediante una consulta
      *
-     * @return Regresa todos los usuarios que se hayan podido recuperar de la
-     * base de datos
+     * @return Regresa todos los usuarios que se hayan podido recuperar de la base de datos
      */
     public List<Usuario> buscaUsuario();
 

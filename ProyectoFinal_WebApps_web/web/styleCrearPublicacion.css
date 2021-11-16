@@ -1,202 +1,202 @@
 
 *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 body{
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(220deg,#a2c4c9, #c27ba0);
-  height: 100vh;
-  overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(220deg,#a2c4c9, #c27ba0);
+    height: 100vh;
+    overflow: hidden;
 }
 header{
-	border-bottom: 3.5px solid #674ea7;
-	padding: 5px;
+    border-bottom: 3.5px solid #674ea7;
+    padding: 5px;
 }
 .header h1{
-	color: #674ea7;
+    color: #674ea7;
 }
 .center{
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }
 .centerPublicar{
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 900px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }
 
 .center h1{
-  text-align: center;
-  padding: 20px 0;
-  border-bottom: 1px solid silver;
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid silver;
 }
 .center form{
-  padding: 0 40px;
-  box-sizing: border-box;
+    padding: 0 40px;
+    box-sizing: border-box;
 }
 form .txt_field{
-  position: relative;
-  border: 0;
-  border-bottom: 2.5px solid #adadad;
-  margin: 30px 0;
+    position: relative;
+    border: 0;
+    border-bottom: 2.5px solid #adadad;
+    margin: 30px 0;
 }
 .txt_field input{
-  width: 100%;
-  padding: 0 5px;
-  height: 40px;
-  font-size: 16px;
-  border: none;
-  background: none;
-  outline: none;
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    outline: none;
 }
 .txt_field label{
-  position: absolute;
-  top: 50%;
-  left: 5px;
-  color: #adadad;
-  transform: translateY(-50%);
-  font-size: 16px;
-  pointer-events: none;
-  transition: .5s;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
 }
 .txt_field span::before{
-  content: '';
-  border: 0;
-  position: absolute;
-  top: 40px;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background: #674ea7;
-  transition: .5s;
+    content: '';
+    border: 0;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #674ea7;
+    transition: .5s;
 }
 .txt_field input:focus ~ label,
 .txt_field input:valid ~ label{
-  top: -5px;
-  color: #674ea7;
+    top: -5px;
+    color: #674ea7;
 }
 .txt_field input:focus ~ span::before,
 .txt_field input:valid ~ span::before{
-  width: 100%;
+    width: 100%;
 }
 .pass{
-  margin: -5px 0 20px 5px;
-  color: #a6a6a6;
-  cursor: pointer;
+    margin: -5px 0 20px 5px;
+    color: #a6a6a6;
+    cursor: pointer;
 }
 .pass:hover{
-  text-decoration: underline;
+    text-decoration: underline;
 }
 input[type="submit"]{
-	position: relative;
-	float: right;
-  width: 10%;
-  text-align: center;
-  height: 50px;
-  border: 1px solid;
-  background: #674ea7;
-  border-radius: 15px;
-  font-size: 18px;
-  color: #e9f4fb;
-  font-weight: 700;
-  cursor: pointer;
-  outline: none;
+    position: relative;
+    float: right;
+    width: 10%;
+    text-align: center;
+    height: 50px;
+    border: 1px solid;
+    background: #674ea7;
+    border-radius: 15px;
+    font-size: 18px;
+    color: #e9f4fb;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
 }
 input[type="submit"]:hover{
-  border-color: #674ea7;
+    border-color: #674ea7;
 }
 input[type="volver"]{
-  width: 6%;
-  margin-left: 94%;
-  text-align: center;
-  height: 50px;
-  border: 1px solid;
-  background: gray;
-  border-radius: 15px;
-  font-size: 15px;
-  color: #e9f4fb;
-  font-weight: 700;
-  cursor: pointer;
-  outline: none;
+    width: 6%;
+    margin-left: 94%;
+    text-align: center;
+    height: 50px;
+    border: 1px solid;
+    background: gray;
+    border-radius: 15px;
+    font-size: 15px;
+    color: #e9f4fb;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
 }
 input[type="volver"]:hover{
-  border-color: #674ea7;
+    border-color: #674ea7;
 }
 .link{
-  margin: 30px 0;
-  text-align: center;
-  font-size: 16px;
-  color: #674ea7;
-  justify-content: space-between;
+    margin: 30px 0;
+    text-align: center;
+    font-size: 16px;
+    color: #674ea7;
+    justify-content: space-between;
 }
 .link a{
-  color: #674ea7;
-  text-decoration: none;
+    color: #674ea7;
+    text-decoration: none;
 }
 .link a:hover{
-  text-decoration: underline;
+    text-decoration: underline;
 }
 .footer {
-  display: flex;
-  position: fixed;
-  left: 34.5%;
-  bottom: 0%;
-  text-align: center;
-  justify-content: space-between;
+    display: flex;
+    position: fixed;
+    left: 34.5%;
+    bottom: 0%;
+    text-align: center;
+    justify-content: space-between;
 }
 .tab {
- margin-left: 3.5em
+    margin-left: 3.5em
 }
 
 .publicar{
-	border-bottom: 3.5px solid #674ea7;
-	display: flex;
+    border-bottom: 3.5px solid #674ea7;
+    display: flex;
 }
 
 .publicar input{
-  width: 15%;
+    width: 15%;
 }
 .contenido{
-	border-right: 3.5px solid #674ea7;
-	position: relative;
-	width: 70%;
+    border-right: 3.5px solid #674ea7;
+    position: relative;
+    width: 70%;
 }
 .configuracion{
-	position: relative;
-	width: 30%;
+    position: relative;
+    width: 30%;
 }
 .configuracion label{
-	float: left;
-	color: #adadad;
-	margin-top:6%;
-	  margin-left: 1%;
-	transform: translateY(-50%);
-	font-size: 16px;
-	pointer-events: none;
+    float: left;
+    color: #adadad;
+    margin-top:6%;
+    margin-left: 1%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
 }
 .configuracion input[type=etiquetas] {
-  float: left;
-  border: 0;
-  padding: 5px;
-  margin-left: 1%;
-  width: 40%;
-  font-size: 16px;
+    float: left;
+    border: 0;
+    padding: 5px;
+    margin-left: 1%;
+    width: 40%;
+    font-size: 16px;
 }
 .configuracion h3{
-	color: #674ea7;
+    color: #674ea7;
 }

@@ -22,8 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class iniciarSesion extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -38,7 +37,7 @@ public class iniciarSesion extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet iniciarSesion</title>");            
+            out.println("<title>Servlet iniciarSesion</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet iniciarSesion at " + request.getContextPath() + "</h1>");
@@ -73,22 +72,32 @@ public class iniciarSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String correo= request.getParameter("correo");
-        String contra= request.getParameter("password");
+        postValidateUserAuthInfo(request, response);
+    }
+
+    /**
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    private void postValidateUserAuthInfo(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String correo = request.getParameter("correo");
+        String contra = request.getParameter("password");
         RepNormal rn = new RepNormal();
-        Normal usuario=rn.buscarPorNombreyContra(correo, contra);
-        if (usuario!=null) {
+        Normal usuario = rn.buscarPorCorreoyContra(correo, contra);
+        if (usuario != null) {
             String destino = "principal.jsp";
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("usuario", usuario);
             requestD.forward(request, response);
-        }else{
-           try (PrintWriter out = response.getWriter()) {
+        } else {
+            try (PrintWriter out = response.getWriter()) {
                 out.println("<script type='text/javascript'>alert('El usuario o contraseña son incorrectos.');location='Login.html';</script>");
             }
         }
-        
-       
     }
 
     /**
