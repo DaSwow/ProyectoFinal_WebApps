@@ -12,35 +12,45 @@
     </head>
     <body>
         <header>
-            <h1>Bienvenid@: <%=((Normal) request.getAttribute("usuario")).getNombreCompleto()%></h1>
+            <h1>Bienvenid@: ${usuario.nombreCompleto}</h1>
         </header>
         <main>
             <form class="btnCrearPublicacion">
                 <input type="crear_publicacion" value="Crear publicación">
             </form>
             <section class="publicaciones">
-                <article class="anclado">
-                    <section class="datosPublicacion">
-                        <h2>Titulo</h2> 
-                        <p>Por: nombreCreador </p>
-                        <p>Fecha de creación: fecha/hora </p>
-                        <p>editado: fecha/hora </p>
-                        <i class="fas fa-anchor fa-2x"></i>
-                    </section>
-                    <section class="contenidoPublicacion">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta accusantium sequi praesentium quam officia? Itaque voluptates voluptate dolorum obcaecati quod, perferendis id dolore velit qui iste nemo ad. Sit, delectus.</p>
-                    </section>                
-                </article>
-                <c:forEach var="post" items="${commonPosts}">
-                    <article>
+                <c:forEach var="post" items="${pinnedPosts}">
+                    <article class="anclado">
                         <section class="datosPublicacion">
                             <h2>${post.titulo}</h2> 
-                            <p>Por: ${post.autor} </p>
+                            <p>Por: ${post.autor.nombreCompleto}</p>
                             <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
                             <p>editado: ${post.fechaHoraEdicion} </p>
                             <form>
                                 <input type="botones" value="Comentar">
-                                <input type="botones" value="Editar">
+                                <c:if test="${post.autor.id==usuario.id}">
+                                    <input type="botones" value="Editar">
+                                </c:if> 
+                            </form>
+                            <i class="fas fa-anchor fa-2x"></i>
+                        </section>
+                        <section class="contenidoPublicacion">
+                            <p>${post.contenido}</p>
+                        </section>          
+                    </article>
+                </c:forEach>
+                <c:forEach var="post" items="${commonPosts}">
+                    <article>
+                        <section class="datosPublicacion">
+                            <h2>${post.titulo}</h2> 
+                            <p>Por: ${post.autor.nombreCompleto}</p>
+                            <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
+                            <p>editado: ${post.fechaHoraEdicion} </p>
+                            <form>
+                                <input type="botones" value="Comentar">
+                                <c:if test="${post.autor.id==usuario.id}">
+                                    <input type="botones" value="Editar">
+                                </c:if> 
                             </form>
                         </section>
                         <section class="contenidoPublicacion">
@@ -55,26 +65,6 @@
                         </section>                
                     </article>
                 </c:forEach>
-                <!--
-                <article>
-                    <section class="datosPublicacion">
-                        <h2>Titulo</h2> 
-                        <p>Por: nombreCreador </p>
-                        <p>Fecha de creación: fecha/hora </p>
-                        <p>editado: fecha/hora </p>
-                        <form>
-                            <input type="botones" value="Comentar">
-                        </form>
-                    </section>
-                    <section class="contenidoPublicacion">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta accusantium sequi praesentium quam officia? Itaque voluptates voluptate dolorum obcaecati quod, perferendis id dolore velit qui iste nemo ad. Sit, delectus.</p>
-                    </section> 
-                    <section class="comentarios"> 
-                        <h1>Comentarios:</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit officiis maxime ab fugiat in quam illo placeat accusamus minima repellat? Perspiciatis saepe illo qui aliquid dolorum praesentium. Dolores, suscipit. Ut!</p>
-                    </section>                 
-                </article>
-                -->
             </section>
         </main>
     </body>

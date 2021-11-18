@@ -6,6 +6,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -26,8 +27,12 @@ public class RepAnclado extends BaseDAO<Anclado> {
     public List<Anclado> buscar() throws DAOException {
         MongoCollection<Anclado> coleccion = this.getColeccion();
         FindIterable<Anclado> posts = coleccion.find();
-        ArrayList<Anclado> listaPosts = new ArrayList();
-        return posts.into(listaPosts);
+        List<Anclado> listaPosts = new ArrayList<>();
+        Iterator<Anclado> it = posts.iterator();
+        while (it.hasNext()) {
+            listaPosts.add(it.next());
+        }
+        return listaPosts;
     }
 
     /**
@@ -52,7 +57,7 @@ public class RepAnclado extends BaseDAO<Anclado> {
         Document filtroActualizacion = new Document("_id", entidad.getId());
 
         Document datosActualizados = new Document("$set",
-                 new Document("autor", entidad.getAutor())
+                new Document("autor", entidad.getAutor())
                         .append("contenido", entidad.getContenido())
                         .append("fechaHoraCreacion", entidad.getFechaHoraCreacion())
                         .append("fechaHoraEdicion", entidad.getFechaHoraEdicion())

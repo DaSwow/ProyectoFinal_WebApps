@@ -5,8 +5,10 @@
  */
 package servlets;
 
+import Blog.Anclado;
 import Blog.Comun;
 import Blog.Normal;
+import Datos.RepAnclado;
 import Datos.RepComun;
 import Datos.RepNormal;
 import Exceptions.DAOException;
@@ -119,9 +121,10 @@ public class iniciarSesion extends HttpServlet {
         try {
             RepComun commonPostsRepository = new RepComun();
             List<Comun> posts = commonPostsRepository.buscar();
-            for (int i = 0; i < posts.size(); i++) {
-                System.out.println(posts.get(i));
-            }
+
+            RepAnclado pinnedPostsRepository = new RepAnclado();
+            List<Anclado> pinnedPosts = pinnedPostsRepository.buscar();
+
             if (!posts.isEmpty()) {
                 //String destino = "principal.jsp";
                 //RequestDispatcher requestD = request.getRequestDispatcher(destino);
@@ -130,6 +133,16 @@ public class iniciarSesion extends HttpServlet {
             } else {
                 //
             }
+
+            if (!pinnedPosts.isEmpty()) {
+                //String destino = "principal.jsp";
+                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                request.setAttribute("pinnedPosts", pinnedPosts);
+                //requestD.forward(request, response);
+            } else {
+                //
+            }
+
         } catch (DAOException ex) {
             Logger.getLogger(iniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
