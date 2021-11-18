@@ -6,16 +6,13 @@
 <html lang="es" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Página Principal</title>
+        <title>P&aacute;gina Principal</title>
         <link rel="stylesheet" href="stylePrincipal.css">
         <script src="https://kit.fontawesome.com/d1149c8381.js" crossorigin="anonymous"></script>
     </head>
-    <%
-        Normal usuario = (Normal) request.getAttribute("usuario");
-    %>
     <body>
         <header>
-            <h1>Bienvenid@: <%=usuario.getNombreCompleto()%></h1>
+            <h1>Bienvenid@: <%=((Normal) request.getAttribute("usuario")).getNombreCompleto()%></h1>
         </header>
         <main>
             <form class="btnCrearPublicacion">
