@@ -5,8 +5,13 @@
  */
 package Blog;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.Objects;
+import javax.imageio.ImageIO;
 import org.bson.types.ObjectId;
 
 /**
@@ -20,7 +25,7 @@ public class Usuario {
     private String correo;
     private String contrasena;
     private String telefono;
-    private String avatar;
+    private byte[] avatar;
     private String ciudad;
     private Date fechaNacimiento;
     private String genero;
@@ -50,7 +55,7 @@ public class Usuario {
      * @param fechaNacimiento
      * @param genero
      */
-    public Usuario(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero) {
+    public Usuario(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero, byte[] avatar) {
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
         this.contrasena = contrasena;
@@ -58,7 +63,7 @@ public class Usuario {
         this.ciudad = ciudad;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
-//        this.municipio = municipio;
+        this.avatar = avatar;
     }
 
     /**
@@ -129,7 +134,7 @@ public class Usuario {
      *
      * @return
      */
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
@@ -137,7 +142,7 @@ public class Usuario {
      *
      * @param avatar
      */
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
@@ -238,4 +243,6 @@ public class Usuario {
         return "Usuario{" + "nombreCompleto=" + nombreCompleto + ", correo=" + correo + ", contrasena=" + contrasena + ", telefono=" + telefono + ", avatar=" + avatar + ", ciudad=" + ciudad + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + '}';
     }
 
+
+    
 }

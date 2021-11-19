@@ -12,7 +12,7 @@
     </head>
     <body>
         <header>
-            <img src="<c:url value="${usuario.avatar}"/>" width="100" height="100">
+            <img src="<c:url value="${usuario.avatar}"/>"  width="100" height="100">
             <h1>Bienvenid@: ${usuario.nombreCompleto}</h1>
         </header>
         <main>

@@ -9,8 +9,10 @@ import Blog.Normal;
 import Datos.RepNormal;
 import Exceptions.DAOException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -22,18 +24,23 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
  * @author Carlos
  */
+@MultipartConfig
 public class registroCuenta extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -43,7 +50,7 @@ public class registroCuenta extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -83,41 +90,43 @@ public class registroCuenta extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        postRegisterUserAuthInfo(request, response);
-    }
-
-    /**
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    private void postRegisterUserAuthInfo(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         String nombre = request.getParameter("nombre");
         String correo = request.getParameter("correo");
         String contra = request.getParameter("contrasenia");
         String telefono = request.getParameter("telefono");
         String ciudad = request.getParameter("ciudad");
-        Date fechaNacimiento = new Date(); //request.getParameter("fechaNacimiento");
-        String genero = request.getParameter("sexo");
 
-        String fecha = request.getParameter("fechaNacimiento");
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        //Logotipo
+        Part filePart = request.getPart("logotipo"); //
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        InputStream fileContent = filePart.getInputStream();
+        byte[] logotipoConvertido = IOUtils.toByteArray(fileContent);
+
+        String fechaAux = request.getParameter("fechaNacimiento");
+
+
+         Date fechaNacimiento=new Date();
         try {
-            fechaNacimiento = formatoFecha.parse(fecha);
+             fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fechaAux);
         } catch (ParseException ex) {
-            System.out.println(ex.getMessage());
         }
 
-        System.out.println(request.getParameter("fechaNacimiento"));
+
+        String genero;
+        if (request.getParameter("sexo").equals("on")) {
+            genero = "Hombre";
+        } else {
+            genero = "Mujer";
+        }
 
         // Hash password for obligatory security measures
         String generatedSecuredPasswordHash
                 = generateStrongPasswordHash(contra);
+        System.out.println(generatedSecuredPasswordHash);
 
-        Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero);
+        //Aquí iria ya con el nuevo avatar
+        Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero, logotipoConvertido); 
+        
         RepNormal rn = new RepNormal();
         if (rn.buscarPorCorreo(correo) == null) {
             try {
@@ -128,11 +137,58 @@ public class registroCuenta extends HttpServlet {
             } catch (DAOException ex) {
             }
         } else {
-            try ( PrintWriter out = response.getWriter()) {
+            try (PrintWriter out = response.getWriter()) {
                 out.println("<script type='text/javascript'>alert('Ya existe un usuario registrado con el mismo correo');location='RegistroDeCuenta.html';</script>");
             }
         }
+
     }
+
+    /*
+    /**
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+//    private void postRegisterUserAuthInfo(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        String nombre = request.getParameter("nombre");
+//        String correo = request.getParameter("correo");
+//        String contra = request.getParameter("contrasenia");
+//        String telefono = request.getParameter("telefono");
+//        String ciudad = request.getParameter("ciudad");
+//        Date fechaNac = new Date(); //request.getParameter("fechaNacimiento");
+//
+//        String genero;
+//        if (request.getParameter("sexo").equals("on")) {
+//            genero = "Hombre";
+//        } else {
+//            genero = "Mujer";
+//        }
+//
+//        // Hash password for obligatory security measures
+//        String generatedSecuredPasswordHash
+//                = generateStrongPasswordHash(contra);
+//        System.out.println(generatedSecuredPasswordHash);
+//
+//        Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNac, genero, );
+//        RepNormal rn = new RepNormal();
+//        if (rn.buscarPorCorreo(correo) == null) {
+//            try {
+//                rn.guardar(usuario);
+//                String destino = "Login.html";
+//                RequestDispatcher requestD = request.getRequestDispatcher(destino);
+//                requestD.forward(request, response);
+//            } catch (DAOException ex) {
+//            }
+//        } else {
+//            try (PrintWriter out = response.getWriter()) {
+//                out.println("<script type='text/javascript'>alert('Ya existe un usuario registrado con el mismo correo');location='RegistroDeCuenta.html';</script>");
+//            }
+//        }
+//    }
 
     /**
      *

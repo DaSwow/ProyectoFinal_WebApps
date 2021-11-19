@@ -28,9 +28,10 @@ public class Normal extends Usuario {
      * @param ciudad
      * @param fechaNacimiento
      * @param genero 
+     * @param avatar
      */
-    public Normal(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero) {
-        super(nombreCompleto, correo, contrasena, telefono, ciudad, fechaNacimiento, genero);
+    public Normal(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero, byte[] avatar) {
+        super(nombreCompleto, correo, contrasena, telefono, ciudad, fechaNacimiento, genero, avatar);
     }
 
     /**
@@ -110,7 +111,7 @@ public class Normal extends Usuario {
      * @return
      */
     @Override
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return super.getAvatar();
     }
 
@@ -119,7 +120,7 @@ public class Normal extends Usuario {
      * @param avatar
      */
     @Override
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         super.setAvatar(avatar);
     }
 
@@ -176,4 +177,6 @@ public class Normal extends Usuario {
     public void setGenero(String genero) {
         super.setGenero(genero);
     }
+
+    
 }

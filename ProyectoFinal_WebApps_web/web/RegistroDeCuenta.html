@@ -11,7 +11,7 @@
             <header>
                 <h1 name="CabeceraLogin">Registro de cuenta</h1>
             </header>
-            <form action="registroCuenta" method="post">
+            <form action="registroCuenta" method="post" enctype='multipart/form-data'>
                 <fieldset class="txt_field" onkeypress="return /[a-z]/i.test(event.key)" >
                     <input name="nombre" type="text" required>
                     <span></span>
@@ -45,15 +45,17 @@
                 <fieldset class="radio_button">
                     <label style="padding-bottom:10%;">Sexo</label>
                     <br>
-                    <input type="radio" name="sexo" id="hombre" value="Hombre" checked="checked"/>
+                    <input type="radio" name="sexo" id="hombre">
                     <label for="hombre">Hombre</label>
-                    <input type="radio" name="sexo" id="mujer" value="Mujer"/>
+                    <input type="radio" name="sexo" id="mujer">
                     <label for="mujer">Mujer</label>
                 </fieldset>
+
                 <fieldset class="image_selector">
-                    <label>Foto de perfil</label> 
-                    <img src="icono-imagen.png" alt="imagen" width="20" height="20" style="margin-left:10%;"> 
-                    <input name="BotonCrearCuenta" type="selector" value="Elegir" style="margin-left:30%;">
+                    <label for="formFileSm" class="form-label">Foto de perfil</label>
+                    <input id="formFileSm" class="form-control form-control-sm" name="logotipo" type="file" accept="image/*"  required> 
+
+                    <br>
                 </fieldset>
                 <input name="BotonCrearCuenta" type="submit" value="Crear Cuenta">
                 <br><br>
