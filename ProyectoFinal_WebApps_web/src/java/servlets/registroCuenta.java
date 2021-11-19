@@ -14,6 +14,8 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import javax.crypto.SecretKeyFactory;
@@ -98,21 +100,24 @@ public class registroCuenta extends HttpServlet {
         String contra = request.getParameter("contrasenia");
         String telefono = request.getParameter("telefono");
         String ciudad = request.getParameter("ciudad");
-        Date fechaNac = new Date(); //request.getParameter("fechaNacimiento");
+        Date fechaNacimiento = new Date(); //request.getParameter("fechaNacimiento");
+        String genero = request.getParameter("sexo");
 
-        String genero;
-        if (request.getParameter("sexo").equals("on")) {
-            genero = "Hombre";
-        } else {
-            genero = "Mujer";
+        String fecha = request.getParameter("fechaNacimiento");
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            fechaNacimiento = formatoFecha.parse(fecha);
+        } catch (ParseException ex) {
+            System.out.println(ex.getMessage());
         }
+
+        System.out.println(request.getParameter("fechaNacimiento"));
 
         // Hash password for obligatory security measures
         String generatedSecuredPasswordHash
                 = generateStrongPasswordHash(contra);
-        System.out.println(generatedSecuredPasswordHash);
 
-        Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNac, genero);
+        Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero);
         RepNormal rn = new RepNormal();
         if (rn.buscarPorCorreo(correo) == null) {
             try {
