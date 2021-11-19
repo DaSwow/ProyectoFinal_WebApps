@@ -22,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.bson.internal.Base64;
 
 /**
  *
@@ -30,7 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 public class iniciarSesion extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -40,7 +42,7 @@ public class iniciarSesion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -100,10 +102,16 @@ public class iniciarSesion extends HttpServlet {
             String destino = "principal.jsp";
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("usuario", usuario);
+
+            //Imagen de avatar
+            String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
+            request.setAttribute("url", url);
+            
+
             getRetrieveAllPosts(request, response);
             requestD.forward(request, response);
         } else {
-            try ( PrintWriter out = response.getWriter()) {
+            try (PrintWriter out = response.getWriter()) {
                 out.println("<script type='text/javascript'>alert('El usuario o contraseña son incorrectos.');location='Login.html';</script>");
             }
         }
