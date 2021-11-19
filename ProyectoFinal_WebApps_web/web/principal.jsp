@@ -12,12 +12,14 @@
     </head>
     <body>
         <header>
-            <img src="<c:url value="${usuario.avatar}"/>"  width="100" height="100">
+           <!-- <img src="<c:url value="${usuario.avatar}"/>"  width="100" height="100"> -->
             <h1>Bienvenid@: ${usuario.nombreCompleto}</h1>
         </header>
         <main>
             <form class="btnCrearPublicacion">
+                <a href="crearPublicación.html">
                 <input type="crear_publicacion" value="Crear publicación">
+                </a>
             </form>
             <section class="publicaciones">
                 <c:forEach var="post" items="${pinnedPosts}">

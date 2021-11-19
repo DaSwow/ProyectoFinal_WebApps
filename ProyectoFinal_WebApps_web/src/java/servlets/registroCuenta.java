@@ -107,17 +107,13 @@ public class registroCuenta extends HttpServlet {
 
          Date fechaNacimiento=new Date();
         try {
-             fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fechaAux);
+             fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaAux);
         } catch (ParseException ex) {
         }
 
 
-        String genero;
-        if (request.getParameter("sexo").equals("on")) {
-            genero = "Hombre";
-        } else {
-            genero = "Mujer";
-        }
+        String genero= request.getParameter("sexo");
+
 
         // Hash password for obligatory security measures
         String generatedSecuredPasswordHash
