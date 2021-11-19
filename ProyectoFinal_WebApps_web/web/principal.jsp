@@ -17,7 +17,7 @@
         </header>
         <main>
             <form class="btnCrearPublicacion">
-                <a href="crearPublicación.html">
+                <a href="crearPublicacion.html">
                 <input type="crear_publicacion" value="Crear publicación">
                 </a>
             </form>
