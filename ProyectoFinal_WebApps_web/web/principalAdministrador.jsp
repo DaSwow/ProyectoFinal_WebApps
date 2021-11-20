@@ -12,14 +12,14 @@
 <html lang="es" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>P&aacute;gina Principal principal</title>
+        <title>P&aacute;gina Principal admin</title>
         <link rel="stylesheet" href="css/stylePrincipal.css">
         <script src="https://kit.fontawesome.com/d1149c8381.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <header>
             <img src='<c:url value="${url}"></c:url>' width="100" height="100" alt="avatar"/>    
-            <h1>Bienvenid@: ${usuario.nombreCompleto}</h1>
+            <h1>Bienvenid@: ${admin.nombreCompleto}</h1>
         </header>
         <main>
             <form action="abrirCrearPublicacion" method="POST" >

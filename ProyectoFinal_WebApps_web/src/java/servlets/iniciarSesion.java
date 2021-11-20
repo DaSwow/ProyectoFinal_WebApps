@@ -5,9 +5,11 @@
  */
 package servlets;
 
+import Blog.Admor;
 import Blog.Anclado;
 import Blog.Comun;
 import Blog.Normal;
+import Datos.RepAdmor;
 import Datos.RepAnclado;
 import Datos.RepComun;
 import Datos.RepNormal;
@@ -96,8 +98,11 @@ public class iniciarSesion extends HttpServlet {
     private void postValidateUserAuthInfo(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String correo = request.getParameter("correo");
+        String contra = request.getParameter("password");
         RepNormal rn = new RepNormal();
-        Normal usuario = rn.buscarPorCorreo(correo);
+        RepAdmor ra = new RepAdmor();
+        Normal usuario = rn.buscarPorCorreoyContra(correo,contra);
+        Admor admin = ra.buscarPorCorreoyContra(correo,contra);
         if (usuario != null) {
             String destino = "principal.jsp";
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
@@ -105,6 +110,18 @@ public class iniciarSesion extends HttpServlet {
            
             //Imagen de avatar
             String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
+            request.setAttribute("url", url);
+
+
+            getRetrieveAllPosts(request, response);
+            requestD.forward(request, response);
+        } else if(admin !=null){
+              String destino = "principalAdministrador.jsp";
+            RequestDispatcher requestD = request.getRequestDispatcher(destino);
+            request.setAttribute("admin", admin);
+           
+            //Imagen de avatar
+            String url = "data:image/png;base64," + Base64.encode(admin.getAvatar());
             request.setAttribute("url", url);
 
 
