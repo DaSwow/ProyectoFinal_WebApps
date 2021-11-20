@@ -5,31 +5,24 @@
  */
 package servlets;
 
-import Blog.Anclado;
-import Blog.Comun;
 import Blog.Normal;
-import Datos.RepAnclado;
-import Datos.RepComun;
 import Datos.RepNormal;
-import Exceptions.DAOException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.bson.internal.Base64;
 
 /**
  *
- * @author Carlos
+ * @author carls
  */
-public class iniciarSesion extends HttpServlet {
+@WebServlet(name = "abrirCrearPublicacion", urlPatterns = {"/abrirCrearPublicacion"})
+public class abrirCrearPublicacion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,10 +41,10 @@ public class iniciarSesion extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet iniciarSesion</title>");
+            out.println("<title>Servlet abrirCrearPublicacion</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet iniciarSesion at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet abrirCrearPublicacion at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -83,77 +76,25 @@ public class iniciarSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        postValidateUserAuthInfo(request, response);
-    }
-
-    /**
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    private void postValidateUserAuthInfo(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         String correo = request.getParameter("correo");
         RepNormal rn = new RepNormal();
         Normal usuario = rn.buscarPorCorreo(correo);
         if (usuario != null) {
-            String destino = "principal.jsp";
+            String destino = "crearPublicacion.jsp";
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("usuario", usuario);
-           
+
             //Imagen de avatar
             String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
             request.setAttribute("url", url);
 
-
-            getRetrieveAllPosts(request, response);
             requestD.forward(request, response);
         } else {
             try (PrintWriter out = response.getWriter()) {
                 out.println("<script type='text/javascript'>alert('El usuario o contraseña son incorrectos.');location='Login.html';</script>");
             }
         }
-    }
 
-    /**
-     
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    private void getRetrieveAllPosts(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            RepComun commonPostsRepository = new RepComun();
-            List<Comun> posts = commonPostsRepository.buscar();
-
-            RepAnclado pinnedPostsRepository = new RepAnclado();
-            List<Anclado> pinnedPosts = pinnedPostsRepository.buscar();
-
-            if (!posts.isEmpty()) {
-                //String destino = "principal.jsp";
-                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
-                request.setAttribute("commonPosts", posts);
-                //requestD.forward(request, response);
-            } else {
-                //
-            }
-
-            if (!pinnedPosts.isEmpty()) {
-                //String destino = "principal.jsp";
-                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
-                request.setAttribute("pinnedPosts", pinnedPosts);
-                //requestD.forward(request, response);
-            } else {
-                //
-            }
-
-        } catch (DAOException ex) {
-            Logger.getLogger(iniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**

@@ -1,13 +1,19 @@
 
 <%@page import="Blog.Comun"%>
 <%@page import="java.util.List"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Blog.Normal"%>
+
+
+<c:if test="${empty usuario}">
+    <c:redirect url = "Login.html"/>
+</c:if>
+
 <html lang="es" dir="ltr">
     <head>
         <meta charset="utf-8">
         <title>P&aacute;gina Principal</title>
-        <link rel="stylesheet" href="stylePrincipal.css">
+        <link rel="stylesheet" href="css/stylePrincipal.css">
         <script src="https://kit.fontawesome.com/d1149c8381.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -16,10 +22,10 @@
             <h1>Bienvenid@: ${usuario.nombreCompleto}</h1>
         </header>
         <main>
-            <form class="btnCrearPublicacion">
-                <a href="crearPublicacion.html">
-                <input type="crear_publicacion" value="Crear publicación">
-                </a>
+            <form action="abrirCrearPublicacion" method="POST" >
+                    <input type="hidden" name="correo" value="${usuario.correo}" required >  
+                    <input type="hidden" name="password" value="${usuario.contrasena}" required>  
+                    <input class="submit" type="submit" value="Crear publicaci&oacute;n" name="crear_publicacion">
             </form>
             <section class="publicaciones">
                 <c:forEach var="post" items="${pinnedPosts}">

@@ -1,8 +1,18 @@
+
+<%@page import="Blog.Comun"%>
+<%@page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="Blog.Normal"%>
+
+<c:if test="${empty usuario}">
+    <c:redirect url = "Login.html"/>
+</c:if>
+
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>P谩gina Principal</title>
+        <title>P醙ina Principal</title>
         <link rel="stylesheet" href="styleAdministrador.css">
         <script src="https://kit.fontawesome.com/d1149c8381.js" crossorigin="anonymous"></script>
     </head>
@@ -12,14 +22,14 @@
         </header>
         <main>
             <form class="btnCrearPublicacion">
-                <input type="submit" value="Crear publicaci贸n">
+                <input type="submit" value="Crear publicaci髇">
             </form>
             <section class="publicaciones">
                 <article class="anclado">
                     <section class="datosPublicacion">
                         <h2>Titulo</h2> 
                         <p>Por: nombreCreador </p>
-                        <p>Fecha de creaci贸n: fecha/hora </p>
+                        <p>Fecha de creaci髇: fecha/hora </p>
                         <p>editado: fecha/hora </p>
                         <i class="fas fa-anchor fa-2x"></i>
                         <form>
@@ -34,7 +44,7 @@
                     <section class="datosPublicacion">
                         <h2>Titulo</h2> 
                         <p>Por: nombreCreador </p>
-                        <p>Fecha de creaci贸n: fecha/hora </p>
+                        <p>Fecha de creaci髇: fecha/hora </p>
                         <p>editado: fecha/hora </p>
                         <form>
                             <input type="submit" value="Eliminar">
@@ -57,7 +67,7 @@
                     <section class="datosPublicacion">
                         <h2>Titulo</h2> 
                         <p>Por: nombreCreador </p>
-                        <p>Fecha de creaci贸n: fecha/hora </p>
+                        <p>Fecha de creaci髇: fecha/hora </p>
                         <p>editado: fecha/hora </p>
                         <form>
                             <input type="submit" value="Eliminar">
