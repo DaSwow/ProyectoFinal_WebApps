@@ -1,99 +1,80 @@
 
 <%@page import="Blog.Comun"%>
 <%@page import="java.util.List"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Blog.Normal"%>
 
-<c:if test="${empty usuario}">
+
+<c:if test="${empty admin}">
     <c:redirect url = "Login.html"/>
 </c:if>
 
-<!DOCTYPE html>
 <html lang="es" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Página Principal</title>
-        <link rel="stylesheet" href="styleAdministrador.css">
+        <title>P&aacute;gina Principal principal</title>
+        <link rel="stylesheet" href="css/stylePrincipal.css">
         <script src="https://kit.fontawesome.com/d1149c8381.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <header>
-            <h1>Bienvenid@: usuario</h1>
+            <img src='<c:url value="${url}"></c:url>' width="100" height="100" alt="avatar"/>    
+            <h1>Bienvenid@: ${usuario.nombreCompleto}</h1>
         </header>
         <main>
-            <form class="btnCrearPublicacion">
-                <input type="submit" value="Crear publicación">
+            <form action="abrirCrearPublicacion" method="POST" >
+                    <input type="hidden" name="correo" value="${admin.correo}" required >  
+                    <input type="hidden" name="password" value="${admin.contrasena}" required>  
+                    <input class="submit" type="submit" value="Crear publicaci&oacute;n" name="crear_publicacion">
             </form>
             <section class="publicaciones">
-                <article class="anclado">
-                    <section class="datosPublicacion">
-                        <h2>Titulo</h2> 
-                        <p>Por: nombreCreador </p>
-                        <p>Fecha de creación: fecha/hora </p>
-                        <p>editado: fecha/hora </p>
-                        <i class="fas fa-anchor fa-2x"></i>
-                        <form>
-                            <input type="submit" value="Eliminar">
-                        </form>
-                    </section>
-                    <section class="contenidoPublicacion">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta accusantium sequi praesentium quam officia? Itaque voluptates voluptate dolorum obcaecati quod, perferendis id dolore velit qui iste nemo ad. Sit, delectus.</p>
-                    </section>                
-                </article>
-                <article>
-                    <section class="datosPublicacion">
-                        <h2>Titulo</h2> 
-                        <p>Por: nombreCreador </p>
-                        <p>Fecha de creación: fecha/hora </p>
-                        <p>editado: fecha/hora </p>
-                        <form>
-                            <input type="submit" value="Eliminar">
-                        </form>
-                    </section>
-                    <section class="contenidoPublicacion">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta accusantium sequi praesentium quam officia? Itaque voluptates voluptate dolorum obcaecati quod, perferendis id dolore velit qui iste nemo ad. Sit, delectus.</p>
-                    </section>
-                    <section class="comentarios"> 
-                        <h1>Comentarios:</h1>
-                        <section class="comentario">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit officiis maxime ab fugiat in quam illo placeat accusamus minima repellat? Perspiciatis saepe illo qui aliquid dolorum praesentium. Dolores, suscipit. Ut!</p>
+                <c:forEach var="post" items="${pinnedPosts}">
+                    <article class="anclado">
+                        <section class="datosPublicacion">
+                            <h2>${post.titulo}</h2> 
+                            <p>Por: ${post.autor.nombreCompleto}</p>
+                            <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
+                            <p>editado: ${post.fechaHoraEdicion} </p>
                             <form>
-                                <input type="submit" value="Eliminar">
+                                <input type="botones" value="Comentar">
+                                <c:if test="${post.autor.id==usuario.id}">
+                                    <input type="botones" value="Editar">
+                                </c:if> 
+                            </form>
+                            <i class="fas fa-anchor fa-2x"></i>
+                        </section>
+                        <section class="contenidoPublicacion">
+                            <p>${post.contenido}</p>
+                        </section>          
+                    </article>
+                </c:forEach>
+                <c:forEach var="post" items="${commonPosts}">
+                    <article>
+                        <section class="datosPublicacion">
+                            <h2>${post.titulo}</h2> 
+                            <p>Por: ${post.autor.nombreCompleto}</p>
+                            <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
+                            <p>editado: ${post.fechaHoraEdicion} </p>
+                            <form>
+                                <input type="botones" value="Comentar">
+                                <c:if test="${post.autor.id==usuario.id}">
+                                    <input type="botones" value="Editar">
+                                </c:if> 
                             </form>
                         </section>
-                    </section>                
-                </article>
-                <article>
-                    <section class="datosPublicacion">
-                        <h2>Titulo</h2> 
-                        <p>Por: nombreCreador </p>
-                        <p>Fecha de creación: fecha/hora </p>
-                        <p>editado: fecha/hora </p>
-                        <form>
-                            <input type="submit" value="Eliminar">
-                        </form>
-                    </section>
-                    <section class="contenidoPublicacion">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta accusantium sequi praesentium quam officia? Itaque voluptates voluptate dolorum obcaecati quod, perferendis id dolore velit qui iste nemo ad. Sit, delectus.</p>
-                    </section> 
-                    <section class="comentarios"> 
-                        <h1>Comentarios:</h1>
-                        <section class="comentario">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit officiis maxime ab fugiat in quam illo placeat accusamus minima repellat? Perspiciatis saepe illo qui aliquid dolorum praesentium. Dolores, suscipit. Ut!</p>
-                            <form>
-                                <input type="submit" value="Eliminar">
-                            </form>
+                        <section class="contenidoPublicacion">
+                            <p>${post.contenido}</p>
                         </section>
-                        <section class="comentario">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit officiis maxime ab fugiat in quam illo placeat accusamus minima repellat? Perspiciatis saepe illo qui aliquid dolorum praesentium. Dolores, suscipit. Ut!</p>
-                            <form>
-                                <input type="submit" value="Eliminar">
-                            </form>
-                        </section>
-                    </section>                 
-                </article>
-            </section>
+                        <section class="comentarios"> 
+                            <h1>Comentarios:</h1>
+                            <c:forEach items="${post.comentarios}" var="comments">
+                                <p>${comments.contenido}</p>
+                            </c:forEach>
 
+                        </section>                
+                    </article>
+                </c:forEach>
+            </section>
         </main>
     </body>
 </html>

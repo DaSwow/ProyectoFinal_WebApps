@@ -5,8 +5,14 @@ import Exceptions.DAOException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -113,13 +119,65 @@ public class RepAdmor extends BaseDAO<Admor> {
         return admin;
     }
 
-    public Admor buscarPorNombreyContra(String correo, String contra) {
+//    public Admor buscarPorNombreyContra(String correo, String contra) {
+//        MongoCollection<Admor> coleccion = this.getColeccion();
+//        Document filtroBusqueda = new Document("correo", correo);
+//        filtroBusqueda.append("contrasena", contra);
+//        FindIterable<Admor> administradores = coleccion.find(filtroBusqueda);
+//        Admor admin = administradores.first();
+//        return admin;
+//    }
+       public Admor buscarPorCorreoyContra(String correo, String contra) {
         MongoCollection<Admor> coleccion = this.getColeccion();
         Document filtroBusqueda = new Document("correo", correo);
-        filtroBusqueda.append("contrasena", contra);
+
         FindIterable<Admor> administradores = coleccion.find(filtroBusqueda);
+
         Admor admin = administradores.first();
-        return admin;
+        if (admin != null) {
+            if (validatePassword(contra, admin.getContrasena())) {
+                return admin;
+            }
+        }
+        return null;
+    }
+    
+     private static boolean validatePassword(String originalPassword, String storedPassword) {
+        try {
+            String[] parts = storedPassword.split(":");
+            int iterations = Integer.parseInt(parts[0]);
+
+            byte[] salt = fromHex(parts[1]);
+            byte[] hash = fromHex(parts[2]);
+
+            PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(),
+                    salt, iterations, hash.length * 8);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            byte[] testHash = skf.generateSecret(spec).getEncoded();
+
+            int diff = hash.length ^ testHash.length;
+            for (int i = 0; i < hash.length && i < testHash.length; i++) {
+                diff |= hash[i] ^ testHash[i];
+            }
+            return diff == 0;
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+            Logger.getLogger(RepNormal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param hex
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
+    private static byte[] fromHex(String hex) throws NoSuchAlgorithmException {
+        byte[] bytes = new byte[hex.length() / 2];
+        for (int i = 0; i < bytes.length; i++) {
+            bytes[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
+        }
+        return bytes;
     }
 
     @Override

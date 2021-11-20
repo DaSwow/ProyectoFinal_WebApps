@@ -5,7 +5,9 @@
  */
 package servlets;
 
+import Blog.Admor;
 import Blog.Normal;
+import Datos.RepAdmor;
 import Datos.RepNormal;
 import Exceptions.DAOException;
 import java.io.IOException;
@@ -123,6 +125,25 @@ public class registroCuenta extends HttpServlet {
         //Aquí iria ya con el nuevo avatar
         Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero, logotipoConvertido); 
         
+        //algun metodo para sacar el contenido del checkbox para admin
+        //if(checkbox para ser admin marcado){
+//        RepAdmor ra = new RepAdmor();
+//        if (ra.buscarPorCorreo(correo) == null) {
+//            Admor admin = new Admor(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero, logotipoConvertido);
+//            try {
+//                ra.guardar(admin);
+//                String destino = "Login.html";
+//                RequestDispatcher requestD = request.getRequestDispatcher(destino);
+//                requestD.forward(request, response);
+//            } catch (DAOException ex) {
+//            }
+//        } else {
+//            try (PrintWriter out = response.getWriter()) {
+//                out.println("<script type='text/javascript'>alert('Ya existe un usuario registrado con el mismo correo');location='RegistroDeCuenta.html';</script>");
+//            }
+//        }
+        
+        //}else{
         RepNormal rn = new RepNormal();
         if (rn.buscarPorCorreo(correo) == null) {
             try {
@@ -138,6 +159,7 @@ public class registroCuenta extends HttpServlet {
             }
         }
 
+        //}
     }
 
     /*
