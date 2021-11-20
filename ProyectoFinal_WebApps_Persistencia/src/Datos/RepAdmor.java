@@ -18,7 +18,7 @@ import org.bson.types.ObjectId;
 
 /**
  *
- * @author
+ * metodos para crud de usuarios administradores
  */
 public class RepAdmor extends BaseDAO<Admor> {
 

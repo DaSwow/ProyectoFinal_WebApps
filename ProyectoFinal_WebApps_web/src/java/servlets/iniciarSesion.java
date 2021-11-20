@@ -108,7 +108,7 @@ public class iniciarSesion extends HttpServlet {
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("usuario", usuario);
            
-            //Imagen de avatar
+            //Imagen de avatar a base 64
             String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
             request.setAttribute("url", url);
 

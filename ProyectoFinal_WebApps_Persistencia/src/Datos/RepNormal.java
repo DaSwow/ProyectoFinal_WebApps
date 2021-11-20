@@ -18,7 +18,7 @@ import org.bson.types.ObjectId;
 
 /**
  *
- * @author
+ * metodos para crud de usuarios normales
  */
 public class RepNormal extends BaseDAO<Normal> {
 

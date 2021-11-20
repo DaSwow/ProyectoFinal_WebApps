@@ -8,7 +8,7 @@
 <c:if test="${empty admin}">
     <c:redirect url = "Login.html"/>
 </c:if>
-
+<!-- menu admin-->
 <html lang="es" dir="ltr">
     <head>
         <meta charset="utf-8">

@@ -125,7 +125,7 @@ public class registroCuenta extends HttpServlet {
         //Aquí iria ya con el nuevo avatar
         Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero, logotipoConvertido); 
         
-        //algun metodo para sacar el contenido del checkbox para admin
+        //algun metodo para sacar el contenido del checkbox para admin y hacer lo de abajo
         //if (RepNormal.buscarPorCorreo == null || RepAdmor.buscarPorCorreo == null){--- te dice que ya esta registrado si no
         //if(checkbox para ser admin marcado){
 //        RepAdmor ra = new RepAdmor();
