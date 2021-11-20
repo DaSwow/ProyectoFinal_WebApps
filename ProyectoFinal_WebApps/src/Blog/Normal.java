@@ -6,15 +6,12 @@
 package Blog;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  *
  * @author valdez
  */
 public class Normal extends Usuario {
-
-    private List<Comentario> comentario;
 
     /**
      *
@@ -23,19 +20,18 @@ public class Normal extends Usuario {
     }
 
     /**
-     *
-     * @return
+     * 
+     * @param nombreCompleto
+     * @param correo
+     * @param contrasena
+     * @param telefono
+     * @param ciudad
+     * @param fechaNacimiento
+     * @param genero 
+     * @param avatar
      */
-    public List<Comentario> getComentario() {
-        return comentario;
-    }
-
-    /**
-     *
-     * @param comentario
-     */
-    public void setComentario(List<Comentario> comentario) {
-        this.comentario = comentario;
+    public Normal(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero, byte[] avatar) {
+        super(nombreCompleto, correo, contrasena, telefono, ciudad, fechaNacimiento, genero, avatar);
     }
 
     /**
@@ -115,7 +111,7 @@ public class Normal extends Usuario {
      * @return
      */
     @Override
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return super.getAvatar();
     }
 
@@ -124,7 +120,7 @@ public class Normal extends Usuario {
      * @param avatar
      */
     @Override
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         super.setAvatar(avatar);
     }
 
@@ -181,4 +177,6 @@ public class Normal extends Usuario {
     public void setGenero(String genero) {
         super.setGenero(genero);
     }
+
+    
 }

@@ -7,6 +7,7 @@ package Blog;
 
 import java.util.Date;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -14,39 +15,62 @@ import java.util.List;
  */
 public class Comun extends Post {
 
-    private Usuario usuario;
-    private List<Comentario> comentario;
+    private List<Comentario> comentarios;
+
+    /**
+     *
+     */
+    public Comun() {
+    }
+
+    /**
+     *
+     * @param fechaHoraCreacion
+     * @param titulo
+     * @param contenido
+     */
+    public Comun(Date fechaHoraCreacion, String titulo, String contenido) {
+        super(fechaHoraCreacion, titulo, contenido);
+    }
+
+    /**
+     *
+     * @param fechaHoraCreacion
+     * @param titulo
+     * @param contenido
+     * @param fechaHoraEdicion
+     */
+    public Comun(Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
+    }
+
+    /**
+     *
+     * @param id
+     * @param autor
+     * @param fechaHoraCreacion
+     * @param titulo
+     * @param contenido
+     * @param fechaHoraEdicion
+     */
+    public Comun(ObjectId id, Usuario autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        super(id, autor, fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
+    }
 
     /**
      *
      * @return
      */
-    public Usuario getUsuario() {
-        return usuario;
+    public List<Comentario> getComentarios() {
+        return comentarios;
     }
 
     /**
      *
-     * @param usuario
+     * @param comentarios
      */
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public List<Comentario> getComentario() {
-        return comentario;
-    }
-
-    /**
-     * 
-     * @param comentario 
-     */
-    public void setComentario(List<Comentario> comentario) {
-        this.comentario = comentario;
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     /**

@@ -6,8 +6,8 @@
 package Blog;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -15,16 +15,23 @@ import java.util.Objects;
  */
 public class Usuario {
 
+    private ObjectId id;
     private String nombreCompleto;
     private String correo;
     private String contrasena;
     private String telefono;
-    private String avatar;
+    private byte[] avatar;
     private String ciudad;
     private Date fechaNacimiento;
     private String genero;
-    private Municipio municipio;
-    private List<Comun> comun;
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
     /**
      *
@@ -33,7 +40,7 @@ public class Usuario {
     }
 
     /**
-     * 
+     *
      * @param nombreCompleto
      * @param correo
      * @param contrasena
@@ -42,207 +49,168 @@ public class Usuario {
      * @param ciudad
      * @param fechaNacimiento
      * @param genero
-     * @param municipio
-     * @param comun 
      */
-    public Usuario(String nombreCompleto, String correo, String contrasena, String telefono, String avatar, String ciudad, Date fechaNacimiento, String genero, Municipio municipio, List<Comun> comun) {
+    public Usuario(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero, byte[] avatar) {
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
         this.contrasena = contrasena;
         this.telefono = telefono;
-        this.avatar = avatar;
         this.ciudad = ciudad;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
-        this.municipio = municipio;
-        this.comun = comun;
+        this.avatar = avatar;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getNombreCompleto() {
         return nombreCompleto;
     }
 
     /**
-     * 
-     * @param nombreCompleto 
+     *
+     * @param nombreCompleto
      */
     public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getCorreo() {
         return correo;
     }
 
     /**
-     * 
-     * @param correo 
+     *
+     * @param correo
      */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getContrasena() {
         return contrasena;
     }
 
     /**
-     * 
-     * @param contrasena 
+     *
+     * @param contrasena
      */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getTelefono() {
         return telefono;
     }
 
     /**
-     * 
-     * @param telefono 
+     *
+     * @param telefono
      */
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
     /**
-     * 
-     * @param avatar 
+     *
+     * @param avatar
      */
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getCiudad() {
         return ciudad;
     }
 
     /**
-     * 
-     * @param ciudad 
+     *
+     * @param ciudad
      */
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
     /**
-     * 
-     * @param fechaNacimiento 
+     *
+     * @param fechaNacimiento
      */
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getGenero() {
         return genero;
     }
 
     /**
-     * 
-     * @param genero 
+     *
+     * @param genero
      */
     public void setGenero(String genero) {
         this.genero = genero;
     }
 
-    /**
-     * 
-     * @return 
-     */
-    public Municipio getMunicipio() {
-        return municipio;
-    }
-
-    /**
-     * 
-     * @param municipio 
-     */
-    public void setMunicipio(Municipio municipio) {
-        this.municipio = municipio;
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public List<Comun> getComun() {
-        return comun;
-    }
-
-    /**
-     * 
-     * @param comun 
-     */
-    public void setComun(List<Comun> comun) {
-        this.comun = comun;
-    }
-
-    /**
-     * 
-     * @return 
-     */
+//    /**
+//     * 
+//     * @return 
+//     */
+//    public Municipio getMunicipio() {
+//        return municipio;
+//    }
+//
+//    /**
+//     * 
+//     * @param municipio 
+//     */
+//    public void setMunicipio(Municipio municipio) {
+//        this.municipio = municipio;
+//    }
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.nombreCompleto);
-        hash = 53 * hash + Objects.hashCode(this.correo);
-        hash = 53 * hash + Objects.hashCode(this.contrasena);
-        hash = 53 * hash + Objects.hashCode(this.telefono);
-        hash = 53 * hash + Objects.hashCode(this.avatar);
-        hash = 53 * hash + Objects.hashCode(this.ciudad);
-        hash = 53 * hash + Objects.hashCode(this.fechaNacimiento);
-        hash = 53 * hash + Objects.hashCode(this.genero);
-        hash = 53 * hash + Objects.hashCode(this.municipio);
-        hash = 53 * hash + Objects.hashCode(this.comun);
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
-    /**
-     * 
-     * @param obj
-     * @return 
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -255,48 +223,21 @@ public class Usuario {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (!Objects.equals(this.nombreCompleto, other.nombreCompleto)) {
-            return false;
-        }
-        if (!Objects.equals(this.correo, other.correo)) {
-            return false;
-        }
-        if (!Objects.equals(this.contrasena, other.contrasena)) {
-            return false;
-        }
-        if (!Objects.equals(this.telefono, other.telefono)) {
-            return false;
-        }
-        if (!Objects.equals(this.avatar, other.avatar)) {
-            return false;
-        }
-        if (!Objects.equals(this.ciudad, other.ciudad)) {
-            return false;
-        }
-        if (!Objects.equals(this.genero, other.genero)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaNacimiento, other.fechaNacimiento)) {
-            return false;
-        }
-        if (!Objects.equals(this.municipio, other.municipio)) {
-            return false;
-        }
-        if (!Objects.equals(this.comun, other.comun)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
-        return "Usuario{" + "nombreCompleto=" + nombreCompleto + ", correo=" + correo + ", contrasena=" + contrasena + ", telefono=" + telefono + ", avatar=" + avatar + ", ciudad=" + ciudad + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + ", municipio=" + municipio + ", comun=" + comun + '}';
+        return "Usuario{" + "nombreCompleto=" + nombreCompleto + ", correo=" + correo + ", contrasena=" + contrasena + ", telefono=" + telefono + ", avatar=" + avatar + ", ciudad=" + ciudad + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + '}';
     }
 
-    
 
+    
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Registro de Cuenta</title>
+        <link rel="stylesheet" href="styleRegistro.css">
+    </head>
+
+    <body>
+        <section name="FormularioLogin" class="center">
+            <header>
+                <h1 name="CabeceraLogin">Registro de cuenta</h1>
+            </header>
+            <form action="registroCuenta" method="post" enctype='multipart/form-data'>
+                <fieldset class="txt_field" onkeypress="return /[a-z ]/i.test(event.key)" >
+                    <input name="nombre" type="text" required>
+                    <span></span>
+                    <label>Nombre</label>
+                </fieldset>
+                <fieldset class="txt_field">
+                    <input name="correo" type="text" required>
+                    <span></span>
+                    <label>Correo</label>
+                </fieldset>
+                <fieldset class="txt_field">
+                    <input name="contrasenia" type="password" required>
+                    <span></span>
+                    <label>Contrase&ntilde;a</label>
+                </fieldset>
+                <fieldset class="txt_field">
+                    <input name="telefono" type="number" required>
+                    <span></span>
+                    <label>Tel&eacute;fono</label>
+                </fieldset>
+                <fieldset class="txt_field">
+                    <input name="ciudad" type="text" required>
+                    <span></span>
+                    <label>Ciudad</label>
+                </fieldset>
+                <fieldset class="txt_field" >
+                    <label style="padding-bottom:15%;">Fecha de nacimiento</label>
+                    <input name="fechaNacimiento" type="date" value="FechaDeNacimiento" min="1920-01-01" max="2020-18-10" required>
+                    <span></span>
+                </fieldset>
+                <fieldset class="radio_button">
+                    <input type="radio" name="sexo" id="hombre" value="Hombre" checked="checked"/>
+                    <label for="hombre">Hombre</label>
+                    <input type="radio" name="sexo" id="mujer" value="Mujer">
+                    <label for="mujer">Mujer</label>
+                </fieldset>
+
+                <fieldset class="image_selector">
+                    <label for="formFileSm" class="form-label">Foto de perfil</label>
+                    <input id="formFileSm" class="form-control form-control-sm" name="logotipo" type="file" accept="image/*"  required> 
+
+                    <br>
+                </fieldset>
+                <input name="BotonCrearCuenta" type="submit" value="Crear Cuenta">
+                <br><br>
+            </form>
+            <a href="Login.html">
+                <input name="BotonCancelar" type="submit" value="Cancelar"  style="width: 80%; margin-left: 10%;">
+            </a>
+        </section>
+    </body>
+
+    <footer class="footer">
+        <section name="EnlacesFooter" class="link">
+            <a href="#">Acerca de&nbsp;</a>
+            <a class="tab" href="#">Privacidad y Seguridad&nbsp;</a>
+            <a class="tab" href="#">T&eacute;rminos y Condiciones de Uso&nbsp;</a>
+        </section>
+    </footer>
+
+</html>

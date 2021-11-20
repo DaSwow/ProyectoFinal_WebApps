@@ -7,6 +7,7 @@ package Blog;
 
 import java.util.List;
 import java.util.Objects;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.Objects;
  */
 public class Estado {
 
-    private String id;
+    private ObjectId id;
     private String nombre;
     private List<Municipio> municipio;
 
@@ -29,7 +30,7 @@ public class Estado {
      * @param id
      * @param nombre
      */
-    public Estado(String id, String nombre) {
+    public Estado(ObjectId id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -38,7 +39,7 @@ public class Estado {
      *
      * @return
      */
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
@@ -46,7 +47,7 @@ public class Estado {
      *
      * @param id
      */
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

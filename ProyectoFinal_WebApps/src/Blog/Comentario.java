@@ -7,6 +7,7 @@ package Blog;
 
 import java.util.Date;
 import java.util.Objects;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -14,6 +15,8 @@ import java.util.Objects;
  */
 public class Comentario {
 
+    private ObjectId id;
+    private ObjectId autor;
     private Date fechaHora;
     private String contenido;
 

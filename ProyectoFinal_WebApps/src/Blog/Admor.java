@@ -6,7 +6,6 @@
 package Blog;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -14,22 +13,12 @@ import java.util.List;
  */
 public class Admor extends Usuario {
 
-    private List<Anclado> anclado;
 
-    /**
-     *
-     * @return
-     */
-    public List<Anclado> getAnclado() {
-        return anclado;
+    public Admor() {
     }
 
-    /**
-     *
-     * @param anclado
-     */
-    public void setAnclado(List<Anclado> anclado) {
-        this.anclado = anclado;
+    public Admor(String nombreCompleto, String correo, String contrasena, String telefono, String ciudad, Date fechaNacimiento, String genero, byte[] avatar) {
+        super(nombreCompleto, correo, contrasena, telefono, ciudad, fechaNacimiento, genero, avatar);
     }
 
     /**
@@ -109,7 +98,7 @@ public class Admor extends Usuario {
      * @return
      */
     @Override
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return super.getAvatar();
     }
 
@@ -118,7 +107,7 @@ public class Admor extends Usuario {
      * @param avatar
      */
     @Override
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         super.setAvatar(avatar);
     }
 
