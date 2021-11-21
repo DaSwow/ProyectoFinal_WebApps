@@ -29,19 +29,16 @@
                     <input class="submit" type="submit" value="Crear publicaci&oacute;n" name="crear_publicacion">
             </form>
             <section class="publicaciones">
+                
                 <c:forEach var="post" items="${pinnedPosts}">
                     <article class="anclado">
                         <section class="datosPublicacion">
                             <h2>${post.titulo}</h2> 
-                            <p>Por: ${post.autor.nombreCompleto}</p>
+                            <p>Por: ${post.nombreAutor}</p>
                             <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
-                            <p>editado: ${post.fechaHoraEdicion} </p>
-                            <form>
-                                <input type="botones" value="Comentar">
-                                <c:if test="${post.autor.id==usuario.id}">
-                                    <input type="botones" value="Editar">
-                                </c:if> 
-                            </form>
+                            <br><br>
+                            <p>Editado: ${post.fechaHoraEdicion} </p>
+                            <br><br>
                             <i class="fas fa-anchor fa-2x"></i>
                         </section>
                         <section class="contenidoPublicacion">
@@ -53,12 +50,12 @@
                     <article>
                         <section class="datosPublicacion">
                             <h2>${post.titulo}</h2> 
-                            <p>Por: ${post.autor.nombreCompleto}</p>
+                            <p>Por: ${post.nombreAutor}</p>
                             <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
-                            <p>editado: ${post.fechaHoraEdicion} </p>
+                            <p>Editado: ${post.fechaHoraEdicion} </p>
                             <form>
-                                <input type="botones" value="Comentar">
-                                <c:if test="${post.autor.id==usuario.id}">
+                                <input type="botones" value="Comentar" name="botonComentar">
+                                <c:if test="${post.autor==usuario.id }">
                                     <input type="botones" value="Editar">
                                 </c:if> 
                             </form>
@@ -68,13 +65,10 @@
                         </section>
                         <section class="comentarios"> 
                             <h1>Comentarios:</h1>
-                            <c:forEach items="${post.comentarios}" var="comments">
-                                <p>${comments.contenido}</p>
-                            </c:forEach>
-
                         </section>                
                     </article>
                 </c:forEach>
+
             </section>
         </main>
     </body>

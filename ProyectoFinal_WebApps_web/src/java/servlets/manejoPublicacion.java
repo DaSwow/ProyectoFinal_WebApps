@@ -17,6 +17,9 @@ import Exceptions.DAOException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -102,11 +105,11 @@ public class manejoPublicacion extends HttpServlet {
         //Tambien se decide la pagina de destino en caso de ser admin o usuario normal
         //Establecemos el tipo de usuario como variable y establecemos su imagen de avatar
         ObjectId idAutor = null;
-        String nombreAutor=null;
+        String nombreAutor = null;
         String destino = null;
         if (admin != null) {
             idAutor = admin.getId();
-            nombreAutor=admin.getNombreCompleto();
+            nombreAutor = admin.getNombreCompleto();
             destino = "principalAdministrador.jsp";
             request.setAttribute("admin", admin);
             //Imagen de avatar
@@ -114,16 +117,17 @@ public class manejoPublicacion extends HttpServlet {
             request.setAttribute("url", url);
         } else if (usuario != null) {
             idAutor = usuario.getId();
-            nombreAutor=usuario.getNombreCompleto();
+            nombreAutor = usuario.getNombreCompleto();
             destino = "principal.jsp";
             request.setAttribute("usuario", usuario);
             //Imagen de avatar
             String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
             request.setAttribute("url", url);
         }
+        
         //Obtenemos si es publicacion anclada o no
         String ancladoBool = request.getParameter("anclado");
-        if (ancladoBool != null && ancladoBool.equalsIgnoreCase("On")) {
+        if (ancladoBool != null && ancladoBool.equalsIgnoreCase("On") && admin != null) {
             try {
                 RepAnclado ra = new RepAnclado();
                 Anclado anclado = new Anclado(idAutor, nombreAutor, fechaCreacion, contenido, titulo, fechaEdicion);
@@ -142,9 +146,12 @@ public class manejoPublicacion extends HttpServlet {
             } catch (DAOException e) {
             }
         }
-        processRequest(request, response);
     }
 
+
+    
+    
+    
     /**
      * Returns a short description of the servlet.
      *

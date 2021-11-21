@@ -42,7 +42,7 @@
                             <p>Editado: ${post.fechaHoraEdicion} </p>
                             <br><br>
                             <form>
-                                    <input type="input" value="Borrar" name="botonBorrar">
+                                <input type="submit" value="Borrar" name="botonBorrar">
                             </form>
                             <i class="fas fa-anchor fa-2x"></i>
                         </section>
@@ -51,6 +51,26 @@
                         </section>          
                     </article>
                 </c:forEach>
+                <c:forEach var="post" items="${commonPosts}">
+                    <article>
+                        <section class="datosPublicacion">
+                            <h2>${post.titulo}</h2> 
+                            <p>Por: ${post.nombreAutor}</p>
+                            <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
+                            <p>Editado: ${post.fechaHoraEdicion} </p>
+                            <form>
+                                <input type="submit" value="Borrar" name="botonBorrar">
+                            </form>
+                        </section>
+                        <section class="contenidoPublicacion">
+                            <p>${post.contenido}</p>
+                        </section>
+                        <section class="comentarios"> 
+                            <h1>Comentarios:</h1>
+                        </section>                
+                    </article>
+                </c:forEach>
+
 
 
 

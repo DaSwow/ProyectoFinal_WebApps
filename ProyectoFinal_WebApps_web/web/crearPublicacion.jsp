@@ -43,10 +43,12 @@
                     <fieldset class="txt_field">
                         <textarea  name="contenido" rows="4" cols="120"  maxlength="480"  value="" required></textarea>
                     </fieldset>
-                    <fieldset class="anclado">
-                        <label>Publicaci&oacute;n anclada</label> 
-                        <input type="checkbox" id="anclado" name="anclado" > 
-                    </fieldset>
+                    <c:if test="${not empty admin}">
+                        <fieldset class="anclado">
+                            <label>Publicaci&oacute;n anclada</label> 
+                            <input type="checkbox" id="anclado" name="anclado" > 
+                        </fieldset>
+                    </c:if>
                     <fieldset class="botonPublicar">
                         <c:choose>
                             <c:when test="${not empty admin.correo}">
@@ -60,30 +62,30 @@
                         </c:choose>
                     </fieldset>
                 </section>  
-                </form>
-                <!--Botón para volver  -->
-                <form action="abrirCrearPublicacion" method="POST" >
-                    <c:choose>
-                        <c:when test="${not empty admin.correo}">
-                            <input type="hidden" name="correo" value="${admin.correo}" required >  
-                        </c:when>    
-                        <c:otherwise>
-                            <input type="hidden" name="correo" value="${usuario.correo}" required >  
-                        </c:otherwise>
-                    </c:choose>
-                    <input type="hidden" name="destino" value="regresar" required>  
-                    <input class="submit" type="submit" value="Volver" name="volver">
-                </form>
+            </form>
+            <!--Botón para volver  -->
+            <form action="abrirCrearPublicacion" method="POST" >
+                <c:choose>
+                    <c:when test="${not empty admin.correo}">
+                        <input type="hidden" name="correo" value="${admin.correo}" required >  
+                    </c:when>    
+                    <c:otherwise>
+                        <input type="hidden" name="correo" value="${usuario.correo}" required >  
+                    </c:otherwise>
+                </c:choose>
+                <input type="hidden" name="destino" value="regresar" required>  
+                <input class="submit" type="submit" value="Volver" name="volver">
+            </form>
 
-            </section>
-        </body>
+        </section>
+    </body>
 
-        <footer class="footer">
-            <section name="EnlacesFooter" class="link">
-                <a href="#">Acerca de&nbsp;</a>
-                <a class="tab" href="#">Privacidad y Seguridad&nbsp;</a>
-                <a class="tab" href="#">T&eacute;rminos y Condiciones de Uso&nbsp;</a>
-            </section>
-        </footer>
+    <footer class="footer">
+        <section name="EnlacesFooter" class="link">
+            <a href="#">Acerca de&nbsp;</a>
+            <a class="tab" href="#">Privacidad y Seguridad&nbsp;</a>
+            <a class="tab" href="#">T&eacute;rminos y Condiciones de Uso&nbsp;</a>
+        </section>
+    </footer>
 
-    </html>
+</html>

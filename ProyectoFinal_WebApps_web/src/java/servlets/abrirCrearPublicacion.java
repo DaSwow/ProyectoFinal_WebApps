@@ -6,11 +6,19 @@
 package servlets;
 
 import Blog.Admor;
+import Blog.Anclado;
+import Blog.Comun;
 import Blog.Normal;
 import Datos.RepAdmor;
+import Datos.RepAnclado;
+import Datos.RepComun;
 import Datos.RepNormal;
+import Exceptions.DAOException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -96,7 +104,7 @@ public class abrirCrearPublicacion extends HttpServlet {
             //Imagen de avatar
             String url = "data:image/png;base64," + Base64.encode(admin.getAvatar());
             request.setAttribute("url", url);
-
+            getRetrieveAllPosts(request, response);
             requestD.forward(request, response);
 
         } else if (usuario != null) {
@@ -111,12 +119,39 @@ public class abrirCrearPublicacion extends HttpServlet {
             //Imagen de avatar
             String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
             request.setAttribute("url", url);
-
+            getRetrieveAllPosts(request, response);
             requestD.forward(request, response);
         }
 
     }
 
+    
+      private void getRetrieveAllPosts(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            RepComun commonPostsRepository = new RepComun();
+            List<Comun> posts = commonPostsRepository.buscar();
+
+            RepAnclado pinnedPostsRepository = new RepAnclado();
+            List<Anclado> pinnedPosts = pinnedPostsRepository.buscar();
+
+            if (posts!=null && !posts.isEmpty()) {
+                //String destino = "principal.jsp";
+                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                request.setAttribute("commonPosts", posts);
+                //requestD.forward(request, response);
+            } 
+            if (pinnedPosts!=null && !pinnedPosts.isEmpty()) {
+                //String destino = "principal.jsp";
+                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                request.setAttribute("pinnedPosts", pinnedPosts);
+                //requestD.forward(request, response);
+            } 
+        } catch (DAOException ex) {
+            Logger.getLogger(iniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * Returns a short description of the servlet.
      *

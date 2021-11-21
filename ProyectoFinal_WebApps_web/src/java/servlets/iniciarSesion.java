@@ -100,28 +100,29 @@ public class iniciarSesion extends HttpServlet {
         String contra = request.getParameter("password");
         RepNormal rn = new RepNormal();
         RepAdmor ra = new RepAdmor();
-        Normal usuario = rn.buscarPorCorreoyContra(correo, contra);
-        Admor admin = ra.buscarPorCorreoyContra(correo, contra);
+        Normal usuario = rn.buscarPorCorreoyContra(correo,contra);
+        Admor admin = ra.buscarPorCorreoyContra(correo,contra);
         if (usuario != null) {
             String destino = "principal.jsp";
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("usuario", usuario);
-
+           
             //Imagen de avatar a base 64
             String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
             request.setAttribute("url", url);
-            //Obtener los post y establecerlos como variables de la solicitud
+
+
             getRetrieveAllPosts(request, response);
-            
             requestD.forward(request, response);
-        } else if (admin != null) {
-            String destino = "principalAdministrador.jsp";
+        } else if(admin !=null){
+              String destino = "principalAdministrador.jsp";
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("admin", admin);
-
+           
             //Imagen de avatar
             String url = "data:image/png;base64," + Base64.encode(admin.getAvatar());
             request.setAttribute("url", url);
+
 
             getRetrieveAllPosts(request, response);
             requestD.forward(request, response);
@@ -133,7 +134,7 @@ public class iniciarSesion extends HttpServlet {
     }
 
     /**
-     *
+     
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -148,13 +149,18 @@ public class iniciarSesion extends HttpServlet {
             RepAnclado pinnedPostsRepository = new RepAnclado();
             List<Anclado> pinnedPosts = pinnedPostsRepository.buscar();
 
-            if (posts != null && !posts.isEmpty()) {
+            if (posts!=null && !posts.isEmpty()) {
+                //String destino = "principal.jsp";
+                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
                 request.setAttribute("commonPosts", posts);
                 //requestD.forward(request, response);
-            }
-            if (pinnedPosts != null && !pinnedPosts.isEmpty()) {
+            } 
+            if (pinnedPosts!=null && !pinnedPosts.isEmpty()) {
+                //String destino = "principal.jsp";
+                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
                 request.setAttribute("pinnedPosts", pinnedPosts);
-            }
+                //requestD.forward(request, response);
+            } 
         } catch (DAOException ex) {
             Logger.getLogger(iniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
