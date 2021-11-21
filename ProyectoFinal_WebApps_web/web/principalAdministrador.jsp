@@ -24,53 +24,60 @@
         </header>
         <main>
             <form action="abrirCrearPublicacion" method="POST" style="padding-bottom: 1%;">
-                <input type="hidden" name="correo" value="${usuario.correo}" required >  
+                <input type="hidden" name="correo" value="${admin.correo}" required >  
                 <input type="hidden" name="destino" value="crearPublicacion.jsp" required>  
                 <input class="submit" type="submit" value="Crear publicaci&oacute;n" name="crear_publicacion">
             </form>
             <section class="publicaciones" style="overflow-y: scroll; height:75%;">
-                <c:forEach var="post" items="${pinnedPosts}">
-                    <article >
-                        <section class="datosPublicacion">
-                            <h2>${post.titulo}</h2> 
-                            <p>Por: ${post.nombreAutor}</p>
-                            <i class="fas fa-anchor fa-2x"></i>
-                        </section>
-                        <section class="contenidoPublicacion">
-                            <p>${post.contenido}</p>
-                        </section>          
-                    </article>
-                </c:forEach>
-                <c:forEach var="post" items="${commonPosts}">
-                    <article >
-                        <section class="datosPublicacion">
-                            <h2>${post.titulo}</h2> 
-                            <p>Por: ${post.nombreAutor}</p>
-                            <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
-                            <p>Editado: ${post.fechaHoraEdicion} </p>
+                <table>
+                    <c:forEach var="post" items="${pinnedPosts}">
 
-                        </section>
-                        <section class="contenidoPublicacion">
-                            <p>${post.contenido}</p>
-                        </section>
-                        <section class="etiquetaComentarios"> 
-                            <h1>Comentarios:</h1>
+                        <tr>
+                            <td>${post.titulo}</td>
+                            <td>Por: ${post.nombreAutor}</td>
+                            <td>Fecha de creación: ${post.fechaHoraCreacion}</td>
+                            <td>Editado: ${post.fechaHoraEdicion}</td>
+                            <td><i class="fas fa-anchor fa-2x"></i></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">${post.contenido}</td>
+                        </tr>
+                        <tr><th colspan="5"></th></tr>
 
-                            <c:forEach var="com" items="${comments}" >
-                                <c:if test="${com.idPublicacion == post.id}">
-                                    <p>${com.autor}: ${com.contenido}</p>
-                                </c:if>
-                            </c:forEach>
-                            <br><br>
-                        </section>   
-                        <section id="comentar">
-                            <form  action="manejoComentarios" method="POST">
-                                <input  value="Eliminar" name="botonEliminar">
-                            </form>
-                        </section>
-                    </article>
-                </c:forEach>
+                    </c:forEach>
+                    <c:forEach var="post" items="${commonPosts}">
 
+
+                            <tr>
+                                <td>${post.titulo}</td>
+                                <td>Por: ${post.nombreAutor}</td>
+                                <td>Fecha de creación: ${post.fechaHoraCreacion} </td>
+                                <td>Editado: ${post.fechaHoraEdicion}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">${post.contenido}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <h3>Comentarios:</h3>
+                                    <c:forEach var="com" items="${comments}" >
+                                        <c:if test="${com.idPublicacion == post.id}">
+                                            <p>${com.contenido}</p>
+                                            <form  method="POST">
+                                                <input class="eliminarComentario"  value="Eliminar comentario" name="botonEliminar" style="height: 20px;">
+                                            </form>
+                                        </c:if>
+                                    </c:forEach>
+                                    <section id="eliminar">
+                                        <form  >
+                                            <input type="submit" value="Eliminar publicaci&oacute;n" name="botonEliminar">
+                                        </form>
+                                    </section>
+                                </td>
+                            </tr>
+                            <tr><th colspan="5"></th></tr>
+                    </c:forEach>
+                </table>
                 <br>
             </section>
 
