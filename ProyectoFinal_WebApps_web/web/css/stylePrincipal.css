@@ -244,3 +244,11 @@ input[type="submit"]:hover{
     cursor: pointer;
     outline: none;
 }
+table, th, td {
+  border:1px solid #674ea7;
+}
+table{
+  table-layout: absolute;
+  width: 100%;
+  border: 3px solid #674ea7;
+}
