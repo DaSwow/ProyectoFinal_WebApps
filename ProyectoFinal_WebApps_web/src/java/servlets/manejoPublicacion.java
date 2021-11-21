@@ -7,10 +7,12 @@ package servlets;
 
 import Blog.Admor;
 import Blog.Anclado;
+import Blog.Comentario;
 import Blog.Comun;
 import Blog.Usuario;
 import Datos.RepAdmor;
 import Datos.RepAnclado;
+import Datos.RepComentarios;
 import Datos.RepComun;
 import Datos.RepNormal;
 import Exceptions.DAOException;
@@ -124,7 +126,7 @@ public class manejoPublicacion extends HttpServlet {
             String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
             request.setAttribute("url", url);
         }
-        
+
         //Obtenemos si es publicacion anclada o no
         String ancladoBool = request.getParameter("anclado");
         if (ancladoBool != null && ancladoBool.equalsIgnoreCase("On") && admin != null) {
@@ -133,6 +135,8 @@ public class manejoPublicacion extends HttpServlet {
                 Anclado anclado = new Anclado(idAutor, nombreAutor, fechaCreacion, contenido, titulo, fechaEdicion);
                 ra.guardar(anclado);
                 RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                getRetrieveAllPosts(request, response);
+                getRetrieveAllComments(request, response);
                 requestD.forward(request, response);
             } catch (DAOException e) {
             }
@@ -142,16 +146,53 @@ public class manejoPublicacion extends HttpServlet {
                 Comun comun = new Comun(idAutor, nombreAutor, fechaCreacion, contenido, titulo, fechaEdicion);
                 rc.guardar(comun);
                 RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                getRetrieveAllPosts(request, response);
+                getRetrieveAllComments(request, response);
                 requestD.forward(request, response);
             } catch (DAOException e) {
             }
         }
     }
 
+    private void getRetrieveAllPosts(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            RepComun commonPostsRepository = new RepComun();
+            List<Comun> posts = commonPostsRepository.buscar();
 
-    
-    
-    
+            RepAnclado pinnedPostsRepository = new RepAnclado();
+            List<Anclado> pinnedPosts = pinnedPostsRepository.buscar();
+
+            if (posts != null && !posts.isEmpty()) {
+                //String destino = "principal.jsp";
+                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                request.setAttribute("commonPosts", posts);
+                //requestD.forward(request, response);
+            }
+            if (pinnedPosts != null && !pinnedPosts.isEmpty()) {
+                //String destino = "principal.jsp";
+                //RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                request.setAttribute("pinnedPosts", pinnedPosts);
+                //requestD.forward(request, response);
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(iniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void getRetrieveAllComments(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            RepComentarios commentariosRepository = new RepComentarios();
+            List<Comentario> comentarios = commentariosRepository.buscar();
+            if (comentarios != null && !comentarios.isEmpty()) {
+                request.setAttribute("comments", comentarios);
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(iniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * Returns a short description of the servlet.
      *

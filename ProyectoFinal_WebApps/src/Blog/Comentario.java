@@ -16,7 +16,8 @@ import org.bson.types.ObjectId;
 public class Comentario {
 
     private ObjectId id;
-    private ObjectId autor;
+    private String autor;
+    private ObjectId idPublicacion;
     private Date fechaHora;
     private String contenido;
 
@@ -26,16 +27,29 @@ public class Comentario {
     public Comentario() {
     }
 
+    
     /**
      * 
      * @param fechaHora
      * @param contenido 
      */
-    public Comentario(Date fechaHora, String contenido) {
+    public Comentario(ObjectId idPublicacion, String autor, Date fechaHora, String contenido) {
+        this.idPublicacion=idPublicacion;
+        this.autor=autor;
         this.fechaHora = fechaHora;
         this.contenido = contenido;
     }
 
+    public ObjectId getIdPublicacion() {
+        return idPublicacion;
+    }
+
+    public void setIdPublicacion(ObjectId idPublicacion) {
+        this.idPublicacion = idPublicacion;
+    }
+
+    
+    
     /**
      * 
      * @return 
@@ -68,6 +82,26 @@ public class Comentario {
         this.contenido = contenido;
     }
 
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    
+    
+    
+    
     /**
      * 
      * @return 
