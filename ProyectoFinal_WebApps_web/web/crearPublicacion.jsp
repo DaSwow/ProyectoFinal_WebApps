@@ -46,19 +46,20 @@
                         <label>Contenido</label>
                     </fieldset>
                     <br><br>
-                    <fieldset name="botonAnclado">
-                        <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Anclado</label> 
+                    <fieldset>
+                        <input type="checkbox" id="anclado" name="anclado"> 
+                        <label for="anclado">Anclado</label> 
                     </fieldset>
-                <c:choose>
-                    <c:when test="${not empty admin.correo}">
-                        <input type="hidden" name="correo" value="${admin.correo}" required >  
-                        <input class="submit" type="submit" value="Publicar" name="crear">
-                    </c:when>    
-                    <c:otherwise>
-                        <input type="hidden" name="correo" value="${usuario.correo}" required >  
-                        <input class="submit" type="submit" value="Publicar" name="crear">
-                    </c:otherwise>
-                </c:choose>
+                    <c:choose>
+                        <c:when test="${not empty admin.correo}">
+                            <input type="hidden" name="correo" value="${admin.correo}" required >  
+                            <input class="submit" type="submit" value="Publicar" name="crear">
+                        </c:when>    
+                        <c:otherwise>
+                            <input type="hidden" name="correo" value="${usuario.correo}" required >  
+                            <input class="submit" type="submit" value="Publicar" name="crear">
+                        </c:otherwise>
+                    </c:choose>
                 </section>
             </form>
             <!--Botón para volver  -->

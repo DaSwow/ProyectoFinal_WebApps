@@ -24,58 +24,21 @@
         </header>
         <main>
             <form action="abrirCrearPublicacion" method="POST" >
-                    <input type="hidden" name="correo" value="${admin.correo}" required >  
-                    <input type="hidden" name="destino" value="crearPublicacion.jsp" required>  
-                    <input class="submit" type="submit" value="Crear publicaci&oacute;n" name="crear_publicacion">
-            </form>
-            <section class="publicaciones">
-                <c:forEach var="post" items="${pinnedPosts}">
-                    <article class="anclado">
-                        <section class="datosPublicacion">
-                            <h2>${post.titulo}</h2> 
-                            <p>Por: ${post.autor.nombreCompleto}</p>
-                            <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
-                            <p>editado: ${post.fechaHoraEdicion} </p>
-                            <form>
-                                <input type="botones" value="Comentar">
-                                <c:if test="${post.autor.id==usuario.id}">
-                                    <input type="botones" value="Editar">
-                                </c:if> 
-                            </form>
-                            <i class="fas fa-anchor fa-2x"></i>
-                        </section>
-                        <section class="contenidoPublicacion">
-                            <p>${post.contenido}</p>
-                        </section>          
-                    </article>
-                </c:forEach>
-                <c:forEach var="post" items="${commonPosts}">
-                    <article>
-                        <section class="datosPublicacion">
-                            <h2>${post.titulo}</h2> 
-                            <p>Por: ${post.autor.nombreCompleto}</p>
-                            <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
-                            <p>editado: ${post.fechaHoraEdicion} </p>
-                            <form>
-                                <input type="botones" value="Comentar">
-                                <c:if test="${post.autor.id==usuario.id}">
-                                    <input type="botones" value="Editar">
-                                </c:if> 
-                            </form>
-                        </section>
-                        <section class="contenidoPublicacion">
-                            <p>${post.contenido}</p>
-                        </section>
-                        <section class="comentarios"> 
-                            <h1>Comentarios:</h1>
-                            <c:forEach items="${post.comentarios}" var="comments">
-                                <p>${comments.contenido}</p>
-                            </c:forEach>
+                <input type="hidden" name="correo" value="${admin.correo}" required >  
+                <input type="hidden" name="destino" value="crearPublicacion.jsp" required>  
+                <input class="submit" type="submit" value="Crear publicaci&oacute;n" name="crear_publicacion">
+            </form> 
 
-                        </section>                
-                    </article>
-                </c:forEach>
+            <section class="publicaciones">
+                
+                
+                
+                
+                
+                
+                <br>
             </section>
+
         </main>
     </body>
 </html>

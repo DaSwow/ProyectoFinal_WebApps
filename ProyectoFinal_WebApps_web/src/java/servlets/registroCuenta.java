@@ -126,8 +126,8 @@ public class registroCuenta extends HttpServlet {
 
         //algun metodo para sacar el contenido del checkbox para admin y hacer lo de abajo
         if (rn.buscarPorCorreo(correo) == null && ra.buscarPorCorreo(correo) == null) {
-            //te dice que ya esta registrado si no
-            if (admn!=null && admn.equalsIgnoreCase("On")) {
+            //te dice que ya esta registrado, si no se procede al registro
+            if (admn != null && admn.equalsIgnoreCase("On")) {
                 try {
                     Admor admin = new Admor(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero, logotipoConvertido);
                     ra.guardar(admin);

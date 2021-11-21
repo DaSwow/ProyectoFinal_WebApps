@@ -46,15 +46,14 @@ public class Comun extends Post {
 
     /**
      *
-     * @param id
      * @param autor
      * @param fechaHoraCreacion
      * @param titulo
      * @param contenido
      * @param fechaHoraEdicion
      */
-    public Comun(ObjectId id, Usuario autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
-        super(id, autor, fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
+    public Comun(ObjectId autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        super(autor, fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
     }
 
     /**

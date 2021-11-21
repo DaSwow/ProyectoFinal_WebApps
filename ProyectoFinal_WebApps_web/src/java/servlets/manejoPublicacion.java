@@ -5,13 +5,26 @@
  */
 package servlets;
 
+import Blog.Admor;
+import Blog.Anclado;
+import Blog.Comun;
+import Blog.Usuario;
+import Datos.RepAdmor;
+import Datos.RepAnclado;
+import Datos.RepComun;
+import Datos.RepNormal;
+import Exceptions.DAOException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.bson.internal.Base64;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -37,7 +50,7 @@ public class manejoPublicacion extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet manejoPublicacion</title>");            
+            out.println("<title>Servlet manejoPublicacion</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet manejoPublicacion at " + request.getContextPath() + "</h1>");
@@ -72,17 +85,63 @@ public class manejoPublicacion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        //Recuperar datos
+        String titulo = request.getParameter("titulo");
+        String contenido = request.getParameter("contenido");
+        Date fechaCreacion = new Date();
+        Date fechaEdicion = new Date();
+
+        //Para la busqueda del usuario/admin
+        String correo = request.getParameter("correo");
+        RepAdmor radmin = new RepAdmor();
+        RepNormal rn = new RepNormal();
+        Admor admin = radmin.buscarPorCorreo(correo);
+        Usuario usuario = rn.buscarPorCorreo(correo);
+        //Aqui ya sea si es usuario o admin, buscamos su id y lo capturamos
+        //Tambien se decide la pagina de destino en caso de ser admin o usuario normal
+        //Establecemos el tipo de usuario como variable y establecemos su imagen de avatar
+        ObjectId idAutor = null;
+        String destino = null;
+        if (admin != null) {
+            idAutor = admin.getId();
+            destino = "principalAdministrador.jsp";
+            request.setAttribute("admin", admin);
+            //Imagen de avatar
+            String url = "data:image/png;base64," + Base64.encode(admin.getAvatar());
+            request.setAttribute("url", url);
+        } else if (usuario != null) {
+            idAutor = usuario.getId();
+            destino = "principal.jsp";
+            request.setAttribute("usuario", usuario);
+            //Imagen de avatar
+            String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
+            request.setAttribute("url", url);
+        }
+        //Obtenemos si es publicacion anclada o no
+        String ancladoBool = request.getParameter("anclado");
+        if (ancladoBool != null && ancladoBool.equalsIgnoreCase("On")) {
+            try {
+                RepAnclado ra = new RepAnclado();
+                Anclado anclado = new Anclado(idAutor, fechaCreacion, contenido, titulo, fechaEdicion);
+                ra.guardar(anclado);
+                RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                requestD.forward(request, response);
+            } catch (DAOException e) {
+
+            }
+        } else {
+            try {
+                RepComun rc = new RepComun();
+                Comun comun = new Comun(idAutor, fechaCreacion, contenido, titulo, fechaEdicion);
+                rc.guardar(comun);
+                RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                requestD.forward(request, response);
+            } catch (DAOException e) {
+
+            }
+        }
+
         processRequest(request, response);
     }
 
