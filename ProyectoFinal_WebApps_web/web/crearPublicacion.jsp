@@ -35,57 +35,55 @@
             <form action="manejoPublicacion" method="post" class="publicar">
                 <section class="contenido">
                     <fieldset class="txt_field">
-                        <input name="titulo" type="text"  maxlength="85" size="85"required>
+                        <input name="titulo" type="titulo" maxlength="60" size="60"  value="" class="titulo" required>
                         <span></span>
                         <label>Titulo</label>
                     </fieldset>
-                    <img src="https://cdn.discordapp.com/attachments/505038447870869524/899763967558307910/unknown.png" alt="">
                     <br><label>Contenido</label>
                     <fieldset class="txt_field">
-                        <textarea  name="contenido" rows="4" cols="85"  maxlength="340"  value=""></textarea>
-                        <span></span>
-
+                        <textarea  name="contenido" rows="4" cols="120"  maxlength="480"  value="" required></textarea>
                     </fieldset>
-                    <br><br>
-                    <fieldset>
-                        <input type="checkbox" id="anclado" name="anclado"> 
-                        <label for="anclado">Anclado</label> 
+                    <fieldset class="anclado">
+                        <label>Publicaci&oacute;n anclada</label> 
+                        <input type="checkbox" id="anclado" name="anclado" > 
                     </fieldset>
+                    <fieldset class="botonPublicar">
+                        <c:choose>
+                            <c:when test="${not empty admin.correo}">
+                                <input type="hidden" name="correo" value="${admin.correo}" required >  
+                                <input class="submit" type="submit" value=" Publicar " name="crear" style="float: left;">
+                            </c:when>    
+                            <c:otherwise>
+                                <input type="hidden" name="correo" value="${usuario.correo}" required >  
+                                <input class="submit" type="submit" value="Publicar" name="crear" style="float: left;">
+                            </c:otherwise>
+                        </c:choose>
+                    </fieldset>
+                </section>  
+                </form>
+                <!--Botón para volver  -->
+                <form action="abrirCrearPublicacion" method="POST" >
                     <c:choose>
                         <c:when test="${not empty admin.correo}">
                             <input type="hidden" name="correo" value="${admin.correo}" required >  
-                            <input class="submit" type="submit" value="Publicar" name="crear">
                         </c:when>    
                         <c:otherwise>
                             <input type="hidden" name="correo" value="${usuario.correo}" required >  
-                            <input class="submit" type="submit" value="Publicar" name="crear">
                         </c:otherwise>
                     </c:choose>
-                </section>
-            </form>
-            <!--Botón para volver  -->
-            <form action="abrirCrearPublicacion" method="POST" >
-                <c:choose>
-                    <c:when test="${not empty admin.correo}">
-                        <input type="hidden" name="correo" value="${admin.correo}" required >  
-                    </c:when>    
-                    <c:otherwise>
-                        <input type="hidden" name="correo" value="${usuario.correo}" required >  
-                    </c:otherwise>
-                </c:choose>
-                <input type="hidden" name="destino" value="regresar" required>  
-                <input class="submit" type="submit" value="Volver" name="volver">
-            </form>
+                    <input type="hidden" name="destino" value="regresar" required>  
+                    <input class="submit" type="submit" value="Volver" name="volver">
+                </form>
 
-        </section>
-    </body>
+            </section>
+        </body>
 
-    <footer class="footer">
-        <section name="EnlacesFooter" class="link">
-            <a href="#">Acerca de&nbsp;</a>
-            <a class="tab" href="#">Privacidad y Seguridad&nbsp;</a>
-            <a class="tab" href="#">T&eacute;rminos y Condiciones de Uso&nbsp;</a>
-        </section>
-    </footer>
+        <footer class="footer">
+            <section name="EnlacesFooter" class="link">
+                <a href="#">Acerca de&nbsp;</a>
+                <a class="tab" href="#">Privacidad y Seguridad&nbsp;</a>
+                <a class="tab" href="#">T&eacute;rminos y Condiciones de Uso&nbsp;</a>
+            </section>
+        </footer>
 
-</html>
+    </html>
