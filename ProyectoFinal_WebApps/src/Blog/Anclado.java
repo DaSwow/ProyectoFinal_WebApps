@@ -50,8 +50,8 @@ public class Anclado extends Post {
      * @param contenido
      * @param fechaHoraEdicion
      */
-    public Anclado(ObjectId autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
-        super (autor, fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
+    public Anclado(ObjectId autor, String nombreAutor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+        super (autor, nombreAutor, fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
     }
 
     /**
@@ -126,4 +126,6 @@ public class Anclado extends Post {
         super.setFechaHoraEdicion(fechaHoraEdicion);
     }
 
+    
+    
 }

@@ -30,12 +30,31 @@
             </form> 
 
             <section class="publicaciones">
-                
-                
-                
-                
-                
-                
+
+
+                <c:forEach var="post" items="${pinnedPosts}">
+                    <article class="anclado">
+                        <section class="datosPublicacion">
+                            <h2>${post.titulo}</h2> 
+                            <p>Por: ${post.nombreAutor}</p>
+                            <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
+                            <br><br>
+                            <p>Editado: ${post.fechaHoraEdicion} </p>
+                            <br><br>
+                            <form>
+                                    <input type="input" value="Borrar" name="botonBorrar">
+                            </form>
+                            <i class="fas fa-anchor fa-2x"></i>
+                        </section>
+                        <section class="contenidoPublicacion">
+                            <p>${post.contenido}</p>
+                        </section>          
+                    </article>
+                </c:forEach>
+
+
+
+
                 <br>
             </section>
 

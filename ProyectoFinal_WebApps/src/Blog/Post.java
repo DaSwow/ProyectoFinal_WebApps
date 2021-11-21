@@ -17,6 +17,7 @@ public class Post {
 
     private ObjectId id;
     private ObjectId autor;
+    private String nombreAutor;
     private Date fechaHoraCreacion;
     private String titulo;
     private String contenido;
@@ -54,8 +55,9 @@ public class Post {
         this.fechaHoraEdicion = fechaHoraEdicion;
     }
 
-    public Post(ObjectId autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+    public Post(ObjectId autor, String nombreAutor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
         this.autor = autor;
+        this.nombreAutor=nombreAutor;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
@@ -141,6 +143,17 @@ public class Post {
     public void setAutor(ObjectId autor) {
         this.autor = autor;
     }
+
+    public String getNombreAutor() {
+        return nombreAutor;
+    }
+
+    public void setNombreAutor(String nombreAutor) {
+        this.nombreAutor = nombreAutor;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {

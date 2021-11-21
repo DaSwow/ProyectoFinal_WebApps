@@ -102,9 +102,11 @@ public class manejoPublicacion extends HttpServlet {
         //Tambien se decide la pagina de destino en caso de ser admin o usuario normal
         //Establecemos el tipo de usuario como variable y establecemos su imagen de avatar
         ObjectId idAutor = null;
+        String nombreAutor=null;
         String destino = null;
         if (admin != null) {
             idAutor = admin.getId();
+            nombreAutor=admin.getNombreCompleto();
             destino = "principalAdministrador.jsp";
             request.setAttribute("admin", admin);
             //Imagen de avatar
@@ -112,6 +114,7 @@ public class manejoPublicacion extends HttpServlet {
             request.setAttribute("url", url);
         } else if (usuario != null) {
             idAutor = usuario.getId();
+            nombreAutor=usuario.getNombreCompleto();
             destino = "principal.jsp";
             request.setAttribute("usuario", usuario);
             //Imagen de avatar
@@ -123,7 +126,7 @@ public class manejoPublicacion extends HttpServlet {
         if (ancladoBool != null && ancladoBool.equalsIgnoreCase("On")) {
             try {
                 RepAnclado ra = new RepAnclado();
-                Anclado anclado = new Anclado(idAutor, fechaCreacion, contenido, titulo, fechaEdicion);
+                Anclado anclado = new Anclado(idAutor, nombreAutor, fechaCreacion, contenido, titulo, fechaEdicion);
                 ra.guardar(anclado);
                 RequestDispatcher requestD = request.getRequestDispatcher(destino);
                 requestD.forward(request, response);
@@ -132,7 +135,7 @@ public class manejoPublicacion extends HttpServlet {
         } else {
             try {
                 RepComun rc = new RepComun();
-                Comun comun = new Comun(idAutor, fechaCreacion, contenido, titulo, fechaEdicion);
+                Comun comun = new Comun(idAutor, nombreAutor, fechaCreacion, contenido, titulo, fechaEdicion);
                 rc.guardar(comun);
                 RequestDispatcher requestD = request.getRequestDispatcher(destino);
                 requestD.forward(request, response);
