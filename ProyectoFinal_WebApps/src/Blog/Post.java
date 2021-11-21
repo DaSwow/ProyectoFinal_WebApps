@@ -16,7 +16,8 @@ import org.bson.types.ObjectId;
 public class Post {
 
     private ObjectId id;
-    private Usuario autor;
+    private ObjectId autor;
+    private String nombreAutor;
     private Date fechaHoraCreacion;
     private String titulo;
     private String contenido;
@@ -54,9 +55,9 @@ public class Post {
         this.fechaHoraEdicion = fechaHoraEdicion;
     }
 
-    public Post(ObjectId id, Usuario autor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
-        this.id = id;
+    public Post(ObjectId autor, String nombreAutor, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
         this.autor = autor;
+        this.nombreAutor=nombreAutor;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
@@ -135,13 +136,24 @@ public class Post {
         this.id = id;
     }
 
-    public Usuario getAutor() {
+    public ObjectId getAutor() {
         return autor;
     }
 
-    public void setAutor(Usuario autor) {
+    public void setAutor(ObjectId autor) {
         this.autor = autor;
     }
+
+    public String getNombreAutor() {
+        return nombreAutor;
+    }
+
+    public void setNombreAutor(String nombreAutor) {
+        this.nombreAutor = nombreAutor;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {
