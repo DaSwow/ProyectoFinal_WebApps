@@ -52,6 +52,7 @@
                         </section>
                         <section class="contenidoPublicacion">
                             <p>${post.contenido}</p>
+
                         </section>
                         <section class="etiquetaComentarios"> 
                             <h1>Comentarios:</h1>
@@ -59,13 +60,16 @@
                             <c:forEach var="com" items="${comments}" >
                                 <c:if test="${com.idPublicacion == post.id}">
                                     <p>${com.autor}: ${com.contenido}</p>
+                                    <form  method="POST">
+                                        <input class="eliminarComentario" type="submit" value="Eliminar^" name="botonEliminar" style="height: 20px;">
+                                    </form>
                                 </c:if>
                             </c:forEach>
                             <br><br>
                         </section>   
-                        <section id="comentar">
-                            <form  action="manejoComentarios" method="POST">
-                                <input  value="Eliminar" name="botonEliminar">
+                        <section id="eliminar">
+                            <form  method="POST">
+                                <input type="submit" value="Eliminar" name="botonEliminar">
                             </form>
                         </section>
                     </article>
