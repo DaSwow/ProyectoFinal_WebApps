@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Blog.Normal"%>
 
-<c:if test="${empty usuario}">
+<c:if test="${(empty usuario) and (empty admin)}">
     <c:redirect url = "Login.html"/>
 </c:if>
 <!DOCTYPE html>

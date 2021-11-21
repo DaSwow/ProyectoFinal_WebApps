@@ -5,7 +5,7 @@
 <%@page import="Blog.Normal"%>
 
 
-<c:if test="${empty admin}">
+<c:if test="${(empty usuario) and (empty admin)}">
     <c:redirect url = "Login.html"/>
 </c:if>
 <!-- menu admin-->
@@ -23,7 +23,7 @@
         </header>
         <main>
             <form action="abrirCrearPublicacion" method="POST" >
-                    <input type="hidden" name="correo" value="${usuario.correo}" required >  
+                    <input type="hidden" name="correo" value="${admin.correo}" required >  
                     <input type="hidden" name="destino" value="crearPublicacion.jsp" required>  
                     <input class="submit" type="submit" value="Crear publicaci&oacute;n" name="crear_publicacion">
             </form>

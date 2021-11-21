@@ -5,7 +5,8 @@
 <%@page import="Blog.Normal"%>
 
 
-<c:if test="${empty usuario}">
+
+<c:if test="${(empty usuario) and (empty admin)}">
     <c:redirect url = "Login.html"/>
 </c:if>
 
