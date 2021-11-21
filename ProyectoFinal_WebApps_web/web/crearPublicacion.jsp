@@ -17,13 +17,23 @@
     <body>
         <header>
             <img src='<c:url value="${url}"></c:url>' width="100" height="100" alt="avatar"/>    
-            <h1>Bienvenid@: ${usuario.nombreCompleto}</h1>
+            <c:choose>
+                <c:when test="${not empty admin.nombreCompleto}">
+                    <h1>Bienvenid@: ${admin.nombreCompleto}</h1>
+                </c:when>    
+                <c:otherwise>
+                    <h1>Bienvenid@: ${usuario.nombreCompleto}</h1>
+                </c:otherwise>
+            </c:choose>
+
+            
         </header>
         <section name="FormularioPublicar" class="centerPublicar">
             <header>
                 <h1 name="CabeceraPublicar">Crear publicación</h1><br>
             </header>
-            <form method="post" class="publicar">
+            <!--Botón para crear publicación  -->
+            <form action="manejoPublicacion" method="post" class="publicar">
                 <section class="contenido">
                     <fieldset class="txt_field">
                         <input name="titulo" type="text" required>
@@ -45,9 +55,20 @@
                     <br><br>
                     <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Anclado</label>
                 </section>
-            </form>
-            <input name="Publicar" type="submit" value="Publicar">
+                <c:choose>
+                    <c:when test="${not empty admin.correo}">
+                        <input type="hidden" name="correo" value="${admin.correo}" required >  
+                        <input class="submit" type="submit" value="Volver" name="volver">
+                    </c:when>    
+                    <c:otherwise>
+                        <input type="hidden" name="correo" value="${usuario.correo}" required >  
+                        <input class="submit" type="submit" value="Volver" name="volver">
+                    </c:otherwise>
+                </c:choose>
 
+            </form>
+
+            <!--Botón para volver  -->
             <form action="abrirCrearPublicacion" method="POST" >
                 <c:choose>
                     <c:when test="${not empty admin.correo}">
