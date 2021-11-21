@@ -29,40 +29,36 @@
                 <input class="submit" type="submit" value="Crear publicaci&oacute;n" name="crear_publicacion">
             </form>
             <section class="publicaciones" style="overflow-y: scroll; height:75%;">
-                <c:forEach var="post" items="${pinnedPosts}">
-                    <table>
-                        <thead>
+                <table>
+                    <c:forEach var="post" items="${pinnedPosts}">
+
+                        <tr>
+                            <td>${post.titulo}</td>
+                            <td>Por: ${post.nombreAutor}</td>
+                            <td>Fecha de creación: ${post.fechaHoraCreacion}</td>
+                            <td>Editado: ${post.fechaHoraEdicion}</td>
+                            <td><i class="fas fa-anchor fa-2x"></i></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">${post.contenido}</td>
+                        </tr>
+                        <tr><th colspan="5"></th></tr>
+
+                    </c:forEach>
+                    <c:forEach var="post" items="${commonPosts}">
+
+
                             <tr>
-                                <th>${post.titulo}</th>
-                                <th>Por: ${post.nombreAutor}</th>
-                                <th>Fecha de creación: ${post.fechaHoraCreacion}</th>
-                                <th>Editado: ${post.fechaHoraEdicion}</th>
-                                <th><i class="fas fa-anchor fa-2x"></i></th>
+                                <td>${post.titulo}</td>
+                                <td>Por: ${post.nombreAutor}</td>
+                                <td>Fecha de creación: ${post.fechaHoraCreacion} </td>
+                                <td>Editado: ${post.fechaHoraEdicion}</td>
                             </tr>
-                        </thead>
-                        <tbody>
                             <tr>
                                 <td colspan="5">${post.contenido}</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </c:forEach>
-                <c:forEach var="post" items="${commonPosts}">
-                    <table >
-                        <thead>
                             <tr>
-                                <th>${post.titulo}</th>
-                                <th>Por: ${post.nombreAutor}</th>
-                                <th>Fecha de creación: ${post.fechaHoraCreacion} </th>
-                                <th>Editado: ${post.fechaHoraEdicion}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="4">${post.contenido}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                     <h3>Comentarios:</h3>
                                     <c:forEach var="com" items="${comments}" >
                                         <c:if test="${com.idPublicacion == post.id}">
@@ -79,10 +75,9 @@
                                     </section>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                </c:forEach>
-
+                            <tr><th colspan="5"></th></tr>
+                    </c:forEach>
+                </table>
                 <br>
             </section>
 

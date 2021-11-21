@@ -245,10 +245,19 @@ input[type="submit"]:hover{
     outline: none;
 }
 table, th, td {
-  border:1px solid #674ea7;
+    border:1px solid #674ea7;
 }
-table{
-  table-layout: absolute;
-  width: 100%;
-  border: 3px solid #674ea7;
+table {
+    table-layout: fixed;
+    width: 100%;
+    border: 3px solid #674ea7;
+}
+.publicacion {
+    border: 3px;
+    border-color:  #674ea7;
+}
+hr{
+    border: none;
+    height: 4px;
+    background-color: #674ea7; /* Modern Browsers */
 }
