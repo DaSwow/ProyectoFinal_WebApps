@@ -153,10 +153,11 @@ form{
     border-radius: 10px;
     text-align:left;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+
 }
 
 .publicaciones article{
-    border-top: 5px solid silver;
+    border-top: 5px solid  #674ea7;
     margin-bottom: 0%;
 }
 
@@ -166,6 +167,8 @@ form{
 }
 
 .anclado .datosPublicacion{
+    border-top: 5px;
+
     border-bottom: 5px solid silver;
 }
 
@@ -194,7 +197,7 @@ form{
     border-bottom: 5px solid silver;
 }
 .comentarios{
-    border-bottom: 10px solid white;
+    border-bottom: 10px solid black;
 }
 
 header{
@@ -219,3 +222,14 @@ input[type="submit"]{
 input[type="submit"]:hover{
     border-color: #674ea7;
 }
+.comentarios{
+    border: none;
+}
+.contenidoComentario{
+    border: 1px;
+}
+.etiquetaComentarios{
+    border-bottom: 10px;
+    border-bottom-color: #674ea7;
+}
+

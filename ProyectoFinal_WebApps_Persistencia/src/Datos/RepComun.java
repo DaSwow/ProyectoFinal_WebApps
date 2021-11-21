@@ -92,6 +92,7 @@ public class RepComun extends BaseDAO<Comun> {
         Comun post = posts.first();
         return post;
     }
+    
 
     /**
      *

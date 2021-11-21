@@ -7,10 +7,12 @@ package servlets;
 
 import Blog.Admor;
 import Blog.Anclado;
+import Blog.Comentario;
 import Blog.Comun;
 import Blog.Normal;
 import Datos.RepAdmor;
 import Datos.RepAnclado;
+import Datos.RepComentarios;
 import Datos.RepComun;
 import Datos.RepNormal;
 import Exceptions.DAOException;
@@ -94,10 +96,10 @@ public class abrirCrearPublicacion extends HttpServlet {
         Admor admin = ra.buscarPorCorreo(correo);
         if (admin != null) {
 
-            if(destino.equalsIgnoreCase("regresar")){
-                destino="principalAdministrador.jsp";
+            if (destino.equalsIgnoreCase("regresar")) {
+                destino = "principalAdministrador.jsp";
             }
-            
+
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("admin", admin);
 
@@ -108,11 +110,11 @@ public class abrirCrearPublicacion extends HttpServlet {
             requestD.forward(request, response);
 
         } else if (usuario != null) {
-            
-            if(destino.equalsIgnoreCase("regresar")){
-                destino="principal.jsp";
+
+            if (destino.equalsIgnoreCase("regresar")) {
+                destino = "principal.jsp";
             }
-            
+
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("usuario", usuario);
 
@@ -120,13 +122,13 @@ public class abrirCrearPublicacion extends HttpServlet {
             String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
             request.setAttribute("url", url);
             getRetrieveAllPosts(request, response);
+            getRetrieveAllComments(request, response);
             requestD.forward(request, response);
         }
 
     }
 
-    
-      private void getRetrieveAllPosts(HttpServletRequest request, HttpServletResponse response)
+    private void getRetrieveAllPosts(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             RepComun commonPostsRepository = new RepComun();
@@ -135,23 +137,36 @@ public class abrirCrearPublicacion extends HttpServlet {
             RepAnclado pinnedPostsRepository = new RepAnclado();
             List<Anclado> pinnedPosts = pinnedPostsRepository.buscar();
 
-            if (posts!=null && !posts.isEmpty()) {
+            if (posts != null && !posts.isEmpty()) {
                 //String destino = "principal.jsp";
                 //RequestDispatcher requestD = request.getRequestDispatcher(destino);
                 request.setAttribute("commonPosts", posts);
                 //requestD.forward(request, response);
-            } 
-            if (pinnedPosts!=null && !pinnedPosts.isEmpty()) {
+            }
+            if (pinnedPosts != null && !pinnedPosts.isEmpty()) {
                 //String destino = "principal.jsp";
                 //RequestDispatcher requestD = request.getRequestDispatcher(destino);
                 request.setAttribute("pinnedPosts", pinnedPosts);
                 //requestD.forward(request, response);
-            } 
+            }
         } catch (DAOException ex) {
             Logger.getLogger(iniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    private void getRetrieveAllComments(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            RepComentarios commentariosRepository = new RepComentarios();
+            List<Comentario> comentarios = commentariosRepository.buscar();
+            if (comentarios != null && !comentarios.isEmpty()) {
+                request.setAttribute("comments", comentarios);
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(iniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * Returns a short description of the servlet.
      *

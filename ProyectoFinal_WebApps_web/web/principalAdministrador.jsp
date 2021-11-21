@@ -23,27 +23,17 @@
             <h1>Bienvenid@: ${admin.nombreCompleto}</h1>
         </header>
         <main>
-            <form action="abrirCrearPublicacion" method="POST" >
-                <input type="hidden" name="correo" value="${admin.correo}" required >  
+            <form action="abrirCrearPublicacion" method="POST" style="padding-bottom: 1%;">
+                <input type="hidden" name="correo" value="${usuario.correo}" required >  
                 <input type="hidden" name="destino" value="crearPublicacion.jsp" required>  
                 <input class="submit" type="submit" value="Crear publicaci&oacute;n" name="crear_publicacion">
-            </form> 
-
-            <section class="publicaciones">
-
-
+            </form>
+            <section class="publicaciones" style="overflow-y: scroll; height:75%;">
                 <c:forEach var="post" items="${pinnedPosts}">
-                    <article class="anclado">
+                    <article >
                         <section class="datosPublicacion">
                             <h2>${post.titulo}</h2> 
                             <p>Por: ${post.nombreAutor}</p>
-                            <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
-                            <br><br>
-                            <p>Editado: ${post.fechaHoraEdicion} </p>
-                            <br><br>
-                            <form>
-                                <input type="submit" value="Borrar" name="botonBorrar">
-                            </form>
                             <i class="fas fa-anchor fa-2x"></i>
                         </section>
                         <section class="contenidoPublicacion">
@@ -52,28 +42,34 @@
                     </article>
                 </c:forEach>
                 <c:forEach var="post" items="${commonPosts}">
-                    <article>
+                    <article >
                         <section class="datosPublicacion">
                             <h2>${post.titulo}</h2> 
                             <p>Por: ${post.nombreAutor}</p>
                             <p>Fecha de creación: ${post.fechaHoraCreacion} </p>
                             <p>Editado: ${post.fechaHoraEdicion} </p>
-                            <form>
-                                <input type="submit" value="Borrar" name="botonBorrar">
-                            </form>
+
                         </section>
                         <section class="contenidoPublicacion">
                             <p>${post.contenido}</p>
                         </section>
-                        <section class="comentarios"> 
+                        <section class="etiquetaComentarios"> 
                             <h1>Comentarios:</h1>
-                        </section>                
+
+                            <c:forEach var="com" items="${comments}" >
+                                <c:if test="${com.idPublicacion == post.id}">
+                                    <p>${com.autor}: ${com.contenido}</p>
+                                </c:if>
+                            </c:forEach>
+                            <br><br>
+                        </section>   
+                        <section id="comentar">
+                            <form  action="manejoComentarios" method="POST">
+                                <input  value="Eliminar" name="botonEliminar">
+                            </form>
+                        </section>
                     </article>
                 </c:forEach>
-
-
-
-
 
                 <br>
             </section>
