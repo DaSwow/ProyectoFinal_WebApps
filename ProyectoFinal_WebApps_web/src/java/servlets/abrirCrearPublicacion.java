@@ -5,7 +5,9 @@
  */
 package servlets;
 
+import Blog.Admor;
 import Blog.Normal;
+import Datos.RepAdmor;
 import Datos.RepNormal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -77,10 +79,23 @@ public class abrirCrearPublicacion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String correo = request.getParameter("correo");
+        String destino = request.getParameter("destino");
         RepNormal rn = new RepNormal();
+        RepAdmor ra = new RepAdmor();
         Normal usuario = rn.buscarPorCorreo(correo);
-        if (usuario != null) {
-            String destino = "crearPublicacion.jsp";
+        Admor admin = ra.buscarPorCorreo(correo);
+        if (admin != null) {
+
+            RequestDispatcher requestD = request.getRequestDispatcher(destino);
+            request.setAttribute("admin", admin);
+
+            //Imagen de avatar
+            String url = "data:image/png;base64," + Base64.encode(admin.getAvatar());
+            request.setAttribute("url", url);
+
+            requestD.forward(request, response);
+
+        } else if (usuario != null) {
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("usuario", usuario);
 
@@ -89,10 +104,6 @@ public class abrirCrearPublicacion extends HttpServlet {
             request.setAttribute("url", url);
 
             requestD.forward(request, response);
-        } else {
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<script type='text/javascript'>alert('El usuario o contraseña son incorrectos.');location='Login.html';</script>");
-            }
         }
 
     }
