@@ -86,6 +86,10 @@ public class abrirCrearPublicacion extends HttpServlet {
         Admor admin = ra.buscarPorCorreo(correo);
         if (admin != null) {
 
+            if(destino.equalsIgnoreCase("regresar")){
+                destino="principalAdministrador.jsp";
+            }
+            
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("admin", admin);
 
@@ -96,6 +100,11 @@ public class abrirCrearPublicacion extends HttpServlet {
             requestD.forward(request, response);
 
         } else if (usuario != null) {
+            
+            if(destino.equalsIgnoreCase("regresar")){
+                destino="principal.jsp";
+            }
+            
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
             request.setAttribute("usuario", usuario);
 

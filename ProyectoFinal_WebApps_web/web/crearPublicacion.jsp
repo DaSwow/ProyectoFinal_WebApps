@@ -47,7 +47,19 @@
                 </section>
             </form>
             <input name="Publicar" type="submit" value="Publicar">
-            <input name="Volver" type="volver" value="Volver">
+
+            <form action="abrirCrearPublicacion" method="POST" >
+                <c:choose>
+                    <c:when test="${not empty admin.correo}">
+                        <input type="hidden" name="correo" value="${admin.correo}" required >  
+                    </c:when>    
+                    <c:otherwise>
+                        <input type="hidden" name="correo" value="${usuario.correo}" required >  
+                    </c:otherwise>
+                </c:choose>
+                <input type="hidden" name="destino" value="regresar" required>  
+                <input class="submit" type="submit" value="Volver" name="volver">
+            </form>
 
         </section>
     </body>
