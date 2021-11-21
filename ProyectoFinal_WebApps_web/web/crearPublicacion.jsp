@@ -16,7 +16,8 @@
     </head>
     <body>
         <header>
-            <img src='<c:url value="${url}"></c:url>' width="100" height="100" alt="avatar"/>    
+            <img src='<c:url value="${url}"></c:url>' width="100" height="100" alt="avatar"/>   
+                <!--Desplegar nombre en base si es admin o usuario normal -->
             <c:choose>
                 <c:when test="${not empty admin.nombreCompleto}">
                     <h1>Bienvenid@: ${admin.nombreCompleto}</h1>
@@ -25,8 +26,6 @@
                     <h1>Bienvenid@: ${usuario.nombreCompleto}</h1>
                 </c:otherwise>
             </c:choose>
-
-            
         </header>
         <section name="FormularioPublicar" class="centerPublicar">
             <header>
@@ -47,27 +46,21 @@
                         <label>Contenido</label>
                     </fieldset>
                     <br><br>
-                </section>
-                <section class="configuracion">
-                    <h3>Configuraci&oacute;n</h3>
-                    <label>Etiquetas</label><br><br>
-                    <input type="etiquetas" placeholder="Buscar...">
-                    <br><br>
-                    <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Anclado</label>
-                </section>
+                    <fieldset name="botonAnclado">
+                        <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Anclado</label> 
+                    </fieldset>
                 <c:choose>
                     <c:when test="${not empty admin.correo}">
                         <input type="hidden" name="correo" value="${admin.correo}" required >  
-                        <input class="submit" type="submit" value="Volver" name="volver">
+                        <input class="submit" type="submit" value="Publicar" name="crear">
                     </c:when>    
                     <c:otherwise>
                         <input type="hidden" name="correo" value="${usuario.correo}" required >  
-                        <input class="submit" type="submit" value="Volver" name="volver">
+                        <input class="submit" type="submit" value="Publicar" name="crear">
                     </c:otherwise>
                 </c:choose>
-
+                </section>
             </form>
-
             <!--Botón para volver  -->
             <form action="abrirCrearPublicacion" method="POST" >
                 <c:choose>

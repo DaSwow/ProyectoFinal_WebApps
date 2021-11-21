@@ -31,10 +31,10 @@ header{
 }
 .centerPublicar{
     position: relative;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 900px;
+    width: 50%;
     background: white;
     border-radius: 10px;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
@@ -175,28 +175,4 @@ input[type="volver"]:hover{
     border-right: 3.5px solid #674ea7;
     position: relative;
     width: 70%;
-}
-.configuracion{
-    position: relative;
-    width: 30%;
-}
-.configuracion label{
-    float: left;
-    color: #adadad;
-    margin-top:6%;
-    margin-left: 1%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    pointer-events: none;
-}
-.configuracion input[type=etiquetas] {
-    float: left;
-    border: 0;
-    padding: 5px;
-    margin-left: 1%;
-    width: 40%;
-    font-size: 16px;
-}
-.configuracion h3{
-    color: #674ea7;
 }
