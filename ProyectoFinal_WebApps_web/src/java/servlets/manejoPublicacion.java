@@ -128,7 +128,6 @@ public class manejoPublicacion extends HttpServlet {
                 RequestDispatcher requestD = request.getRequestDispatcher(destino);
                 requestD.forward(request, response);
             } catch (DAOException e) {
-
             }
         } else {
             try {
@@ -138,10 +137,8 @@ public class manejoPublicacion extends HttpServlet {
                 RequestDispatcher requestD = request.getRequestDispatcher(destino);
                 requestD.forward(request, response);
             } catch (DAOException e) {
-
             }
         }
-
         processRequest(request, response);
     }
 

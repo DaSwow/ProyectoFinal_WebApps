@@ -35,15 +35,16 @@
             <form action="manejoPublicacion" method="post" class="publicar">
                 <section class="contenido">
                     <fieldset class="txt_field">
-                        <input name="titulo" type="text" required>
+                        <input name="titulo" type="text"  maxlength="85" size="85"required>
                         <span></span>
                         <label>Titulo</label>
                     </fieldset>
                     <img src="https://cdn.discordapp.com/attachments/505038447870869524/899763967558307910/unknown.png" alt="">
+                    <br><label>Contenido</label>
                     <fieldset class="txt_field">
-                        <input name="contenido" type="text" required>
+                        <textarea  name="contenido" rows="4" cols="85"  maxlength="340"  value=""></textarea>
                         <span></span>
-                        <label>Contenido</label>
+
                     </fieldset>
                     <br><br>
                     <fieldset>
