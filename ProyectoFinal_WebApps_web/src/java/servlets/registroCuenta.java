@@ -97,70 +97,63 @@ public class registroCuenta extends HttpServlet {
         String contra = request.getParameter("contrasenia");
         String telefono = request.getParameter("telefono");
         String ciudad = request.getParameter("ciudad");
+        String admn = request.getParameter("admin");
 
-        //Logotipo
+        //Logotipo - Avatar
         Part filePart = request.getPart("logotipo"); //
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
         InputStream fileContent = filePart.getInputStream();
         byte[] logotipoConvertido = IOUtils.toByteArray(fileContent);
 
+        //Fecha de nacimiento
         String fechaAux = request.getParameter("fechaNacimiento");
 
-
-         Date fechaNacimiento=new Date();
+        Date fechaNacimiento = new Date();
         try {
-             fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaAux);
+            fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaAux);
         } catch (ParseException ex) {
         }
 
+        //Genero
+        String genero = request.getParameter("sexo");
 
-        String genero= request.getParameter("sexo");
-
-
-        // Hash password for obligatory security measures
+        // Hash password
         String generatedSecuredPasswordHash
                 = generateStrongPasswordHash(contra);
         System.out.println(generatedSecuredPasswordHash);
 
-        //Aquí iria ya con el nuevo avatar
-        Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero, logotipoConvertido); 
-        
-        //algun metodo para sacar el contenido del checkbox para admin y hacer lo de abajo
-        //if (RepNormal.buscarPorCorreo == null || RepAdmor.buscarPorCorreo == null){--- te dice que ya esta registrado si no
-        //if(checkbox para ser admin marcado){
-//        RepAdmor ra = new RepAdmor();
-//        if (ra.buscarPorCorreo(correo) == null) {
-//            Admor admin = new Admor(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero, logotipoConvertido);
-//            try {
-//                ra.guardar(admin);
-//                String destino = "Login.html";
-//                RequestDispatcher requestD = request.getRequestDispatcher(destino);
-//                requestD.forward(request, response);
-//            } catch (DAOException ex) {
-//            }
-//        } else {
-//            try (PrintWriter out = response.getWriter()) {
-//                out.println("<script type='text/javascript'>alert('Ya existe un usuario registrado con el mismo correo');location='RegistroDeCuenta.html';</script>");
-//            }
-//        }
-        
-        //}else{
+        RepAdmor ra = new RepAdmor();
         RepNormal rn = new RepNormal();
-        if (rn.buscarPorCorreo(correo) == null) {
-            try {
-                rn.guardar(usuario);
-                String destino = "Login.html";
-                RequestDispatcher requestD = request.getRequestDispatcher(destino);
-                requestD.forward(request, response);
-            } catch (DAOException ex) {
+
+        //algun metodo para sacar el contenido del checkbox para admin y hacer lo de abajo
+        if (rn.buscarPorCorreo(correo) == null && ra.buscarPorCorreo(correo) == null) {
+            //te dice que ya esta registrado si no
+            if (admn.equalsIgnoreCase("On")) {
+                try {
+                    Admor admin = new Admor(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero, logotipoConvertido);
+                    ra.guardar(admin);
+                    String destino = "Login.html";
+                    RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                    requestD.forward(request, response);
+                } catch (DAOException ex) {
+
+                }
+            } else {
+                try {
+                    Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNacimiento, genero, logotipoConvertido);
+                    rn.guardar(usuario);
+                    String destino = "Login.html";
+                    RequestDispatcher requestD = request.getRequestDispatcher(destino);
+                    requestD.forward(request, response);
+                } catch (DAOException ex) {
+
+                }
             }
         } else {
             try (PrintWriter out = response.getWriter()) {
                 out.println("<script type='text/javascript'>alert('Ya existe un usuario registrado con el mismo correo');location='RegistroDeCuenta.html';</script>");
             }
-        }
 
-        //}
+        }
     }
 
     /*
@@ -171,44 +164,43 @@ public class registroCuenta extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-//    private void postRegisterUserAuthInfo(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        String nombre = request.getParameter("nombre");
-//        String correo = request.getParameter("correo");
-//        String contra = request.getParameter("contrasenia");
-//        String telefono = request.getParameter("telefono");
-//        String ciudad = request.getParameter("ciudad");
-//        Date fechaNac = new Date(); //request.getParameter("fechaNacimiento");
-//
-//        String genero;
-//        if (request.getParameter("sexo").equals("on")) {
-//            genero = "Hombre";
-//        } else {
-//            genero = "Mujer";
-//        }
-//
-//        // Hash password for obligatory security measures
-//        String generatedSecuredPasswordHash
-//                = generateStrongPasswordHash(contra);
-//        System.out.println(generatedSecuredPasswordHash);
-//
-//        Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNac, genero, );
-//        RepNormal rn = new RepNormal();
-//        if (rn.buscarPorCorreo(correo) == null) {
-//            try {
-//                rn.guardar(usuario);
-//                String destino = "Login.html";
-//                RequestDispatcher requestD = request.getRequestDispatcher(destino);
-//                requestD.forward(request, response);
-//            } catch (DAOException ex) {
-//            }
-//        } else {
-//            try (PrintWriter out = response.getWriter()) {
-//                out.println("<script type='text/javascript'>alert('Ya existe un usuario registrado con el mismo correo');location='RegistroDeCuenta.html';</script>");
-//            }
-//        }
-//    }
-
+    //    private void postRegisterUserAuthInfo(HttpServletRequest request, HttpServletResponse response)
+    //            throws ServletException, IOException {
+    //        String nombre = request.getParameter("nombre");
+    //        String correo = request.getParameter("correo");
+    //        String contra = request.getParameter("contrasenia");
+    //        String telefono = request.getParameter("telefono");
+    //        String ciudad = request.getParameter("ciudad");
+    //        Date fechaNac = new Date(); //request.getParameter("fechaNacimiento");
+    //
+    //        String genero;
+    //        if (request.getParameter("sexo").equals("on")) {
+    //            genero = "Hombre";
+    //        } else {
+    //            genero = "Mujer";
+    //        }
+    //
+    //        // Hash password for obligatory security measures
+    //        String generatedSecuredPasswordHash
+    //                = generateStrongPasswordHash(contra);
+    //        System.out.println(generatedSecuredPasswordHash);
+    //
+    //        Normal usuario = new Normal(nombre, correo, generatedSecuredPasswordHash, telefono, ciudad, fechaNac, genero, );
+    //        RepNormal rn = new RepNormal();
+    //        if (rn.buscarPorCorreo(correo) == null) {
+    //            try {
+    //                rn.guardar(usuario);
+    //                String destino = "Login.html";
+    //                RequestDispatcher requestD = request.getRequestDispatcher(destino);
+    //                requestD.forward(request, response);
+    //            } catch (DAOException ex) {
+    //            }
+    //        } else {
+    //            try (PrintWriter out = response.getWriter()) {
+    //                out.println("<script type='text/javascript'>alert('Ya existe un usuario registrado con el mismo correo');location='RegistroDeCuenta.html';</script>");
+    //            }
+    //        }
+    //    }
     /**
      *
      * @param password
