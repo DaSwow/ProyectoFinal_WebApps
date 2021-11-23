@@ -33,14 +33,14 @@
                     <c:forEach var="post" items="${pinnedPosts}">
 
                         <tr>
-                            <td>${post.titulo}</td>
+                            <td>${post.contenido}</td>
                             <td>Por: ${post.nombreAutor}</td>
                             <td>Fecha de creación: ${post.fechaHoraCreacion}</td>
                             <td>Editado: ${post.fechaHoraEdicion}</td>
                             <td><i class="fas fa-anchor fa-2x"></i></td>
                         </tr>
                         <tr>
-                            <td colspan="5">${post.contenido}</td>
+                            <td colspan="5">${post.titulo}</td>
                         </tr>
                         <tr><th colspan="5"></th></tr>
 
@@ -49,13 +49,13 @@
 
 
                             <tr>
-                                <td>${post.titulo}</td>
+                                <td>${post.contenido}</td>
                                 <td>Por: ${post.nombreAutor}</td>
                                 <td>Fecha de creación: ${post.fechaHoraCreacion} </td>
                                 <td>Editado: ${post.fechaHoraEdicion}</td>
                             </tr>
                             <tr>
-                                <td colspan="5">${post.contenido}</td>
+                                <td colspan="5">${post.titulo}</td>
                             </tr>
                             <tr>
                                 <td colspan="5">

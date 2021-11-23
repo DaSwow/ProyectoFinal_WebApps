@@ -29,19 +29,19 @@
                 <c:forEach var="post" items="${pinnedPosts}">
                     <article >
                         <section class="datosPublicacion">
-                            <h2>${post.titulo}</h2> 
+                            <h2>${post.contenido}</h2> 
                             <p>Por: ${post.nombreAutor}</p>
                             <i class="fas fa-anchor fa-2x"></i>
                         </section>
                         <section class="contenidoPublicacion">
-                            <p>${post.contenido}</p>
+                            <p>${post.titulo}</p>
                         </section>          
                     </article>
                 </c:forEach>
                 <c:forEach var="post" items="${commonPosts}">
                     <article >
                         <section class="datosPublicacion">
-                            <h2>${post.titulo}</h2> 
+                            <h2>${post.contenido}</h2> 
                             <p>Por: ${post.nombreAutor}</p>
                             <form>
                                 <fieldset  style="border:none;">
@@ -52,7 +52,7 @@
                             </form>
                         </section>
                         <section class="contenidoPublicacion">
-                            <p>${post.contenido}</p>
+                            <p>${post.titulo}</p>
                         </section>
                         <section class="etiquetaComentarios"> 
                             <h1>Comentarios:</h1>
