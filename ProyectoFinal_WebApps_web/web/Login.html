@@ -4,21 +4,22 @@
         <meta charset="utf-8">
         <title>Inicio de Sesi&oacute;n</title>
         <link rel="stylesheet" href="css/style.css">
+        <script defer src="js/LoginScript.js"></script>
     </head>
     <body>
         <section name="FormularioLogin" class="center">
             <header>
                 <h1 name="CabeceraLogin">Inicio de Sesi&oacute;n</h1>
             </header>
-            <form action="iniciarSesion" method="post">
+            <form action="" method="post" id="Loginfrm">
                 <fieldset class="txt_field">
-                    <input name="correo" type="text" required>
+                    <input id="txtcorreo" name="correo" type="text" required>
                     <span></span>
                     <label>Correo</label>
                 </fieldset>
 
                 <fieldset class="txt_field">
-                    <input name="password" type="password" required>
+                    <input id="txtPsw" name="password" type="password" required>
                     <span></span>
                     <label>Contrase&ntilde;a</label>
                 </fieldset>

@@ -61,6 +61,12 @@ public class Usuario {
         this.avatar = avatar;
     }
 
+    public Usuario(String correo, String contrasena) {
+        this.correo = correo;
+        this.contrasena = contrasena;
+    }
+    
+
     /**
      *
      * @return

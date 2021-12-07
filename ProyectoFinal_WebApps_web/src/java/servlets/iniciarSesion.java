@@ -10,17 +10,20 @@ import Blog.Anclado;
 import Blog.Comentario;
 import Blog.Comun;
 import Blog.Normal;
+import Blog.Usuario;
 import Datos.RepAdmor;
 import Datos.RepAnclado;
 import Datos.RepComentarios;
 import Datos.RepComun;
 import Datos.RepNormal;
 import Exceptions.DAOException;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -99,27 +102,31 @@ public class iniciarSesion extends HttpServlet {
      */
     private void postValidateUserAuthInfo(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String correo = request.getParameter("correo");
-        String contra = request.getParameter("password");
+          String json = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+          Gson gson = new Gson();
+        Usuario u = gson.fromJson(json, Usuario.class);
+//        String correo = request.getParameter("correo");
+//        String contra = request.getParameter("password");
         RepNormal rn = new RepNormal();
         RepAdmor ra = new RepAdmor();
-        Normal usuario = rn.buscarPorCorreoyContra(correo, contra);
-        Admor admin = ra.buscarPorCorreoyContra(correo, contra);
+        Normal usuario = rn.buscarPorCorreoyContra(u.getCorreo(), u.getContrasena());
+        Admor admin = ra.buscarPorCorreoyContra(u.getCorreo(), u.getContrasena());
         if (usuario != null) {
             String destino = "principal.jsp";
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
-            request.setAttribute("usuario", usuario);
+            request.setAttribute("usuario", gson.toJson(usuario));
 
             //Imagen de avatar a base 64
             String url = "data:image/png;base64," + Base64.encode(usuario.getAvatar());
             request.setAttribute("url", url);
+            System.out.println("sos");
             getRetrieveAllComments(request, response);
             getRetrieveAllPosts(request, response);
             requestD.forward(request, response);
         } else if (admin != null) {
             String destino = "principalAdministrador.jsp";
             RequestDispatcher requestD = request.getRequestDispatcher(destino);
-            request.setAttribute("admin", admin);
+            request.setAttribute("admin", gson.toJson(admin));
 
             //Imagen de avatar
             String url = "data:image/png;base64," + Base64.encode(admin.getAvatar());
